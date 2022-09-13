@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!--<form action="test.php" method="post" enctype="multipart/form-data">-->
+<!--  <div class="form-group mb-3">-->
+<!--    <label for="inputImage" class="col-form-label">Book cover image</label>-->
+<!--    <input class="form-control" name="myFile" type="file" id="inputImage">-->
+<!--  </div>-->
+<!--  <input name="input">-->
+<!--  <button type="submit">submit</button>-->
+
+
+<!--</form>-->
+
+<input type="file" name="input" id="fileInput">
+
+<select name="category" class="form-select formField" id="inputCategory">
+  <option value="1">Fiction</option>
+  <option value="2">Nonfiction</option>
+  <option value="3">Reference</option>
+</select>
+
+<script>
+  // const fileInput = document.getElementById("fileInput")
+  //
+  // fileInput.addEventListener("change", (e) => {
+  //   const file = e.target.files
+  //   console.log(file)
+  // })
+  const select  = document.getElementById("inputCategory")
+  select.addEventListener("change", (e) => {
+    console.log(e.target.options[e.target.selectedIndex].text)
+    const index = select.selectedIndex
+    console.log(index)
+    console.log(select.options[index].text)
+
+  })
+  window.addEventListener("load", () => {
+    const index = select.selectedIndex
+    console.log(index)
+    console.log(select.options[index].text)
+  })
+
+</script>
+</body>
+</html>

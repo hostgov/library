@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a3bfd57e-b5f4-49dc-9bac-f9790463b835" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="2DvtLjlb2TdIO0EoqcntEELDTZX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="ToolWindowDuplicates.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../simple-template-1.1" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ryan.Q\Desktop\library lay-out test\css" />
+      <recent name="C:\Users\Ryan.Q\Desktop\library lay-out test\js" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3bfd57e-b5f4-49dc-9bac-f9790463b835" name="Default Changelist" comment="" />
+      <created>1661591331982</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1661591331982</updated>
+      <workItem from="1661591333057" duration="5851000" />
+      <workItem from="1661597341995" duration="4653000" />
+      <workItem from="1661647055172" duration="6003000" />
+      <workItem from="1661662639199" duration="10429000" />
+      <workItem from="1661823868962" duration="2974000" />
+      <workItem from="1661929596296" duration="4673000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="596" y="353" key="FileChooserDialogImpl" timestamp="1661929679016">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="596" y="353" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1661929679016" />
+    <state x="1153" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1661592153240">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1153" y="227" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1661592153240" />
+  </component>
+</project>

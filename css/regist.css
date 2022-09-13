@@ -1,0 +1,316 @@
+/*header_navbar*/
+.header_navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  transition: all 0.3s ease-out 0s;
+}
+.sticky {
+  position: fixed;
+  z-index: 99;
+  background-color: #fff;
+  box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-out 0s;
+}
+/*transition when add when page scrolled*/
+.sticky .navbar {
+  padding: 15px 0;
+}
+.navbar {
+  padding: 20px 0;
+  border-radius: 5px;
+  /*position: relative;*/
+  transition: all 0.3s ease-out 0s;
+}
+.navbar-brand {
+  padding: 0;
+}
+.navbar-brand img {
+  width: 150px;
+}
+
+/*toggler & transition*/
+.navbar-toggler {
+  padding: 0;
+}
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+.navbar-toggler .toggler-icon {
+  width: 30px;
+  height: 2px;
+  background-color: #fff;
+  display: block;
+  margin: 5px 0;
+  position: relative;
+  transition: all 0.3s ease-out 0s;
+}
+.navbar-toggler.active .toggler-icon:nth-of-type(1) {
+  transform: rotate(45deg);
+  top: 7px;
+}
+.navbar-toggler.active .toggler-icon:nth-of-type(2) {
+  opacity: 0;
+}
+.navbar-toggler.active .toggler-icon:nth-of-type(1) {
+  transform: rotate(135deg);
+  top: -7px;
+}
+.navbar-nav .nav-item {
+  position: relative;
+  margin-left: 40px;
+}
+.navbar .nav-item a {
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  transition: all 0.3s ease-out 0s;
+  padding: 10px 0;
+  position: relative;
+}
+/*the white small bar under the nav-item & transition */
+.navbar-nav .nav-item a::before {
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #fff;
+  transition: all 0.3s ease-out 0s;
+}
+.navbar .nav-item a.active::before, .navbar-nav .nav-item a:hover::before {
+  width: 100%;
+}
+
+.sticky .navbar-toggler .toggler-icon {
+  background-color: #222;
+}
+.sticky .navbar-nav .nav-item a {
+  color: #222;
+}
+.sticky .navbar-nav .nav-item a::before {
+  background-color: #E84E4E;
+}
+.sticky .navbar-nav .nav-item a.active, .sticky .navbar-nav .nav-item a:hover {
+  color: #E84E4E;
+}
+
+
+
+/*=====================hero=============*/
+.single_hero {
+  height: 750px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .single_hero {
+    height: 700px;
+  }
+}
+
+@media (max-width: 767px) {
+  .single_hero {
+    height: 650px;
+  }
+}
+
+/*image cover on hero*/
+.single_hero::before {
+  position: absolute;
+  content: '';
+  background-color: rgba(43, 42, 61, 0.7);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+.hero_content {
+  margin: 0;
+}
+h2 {
+  color: white;
+  text-align: center;
+}
+#submit {
+  width: 100%;
+}
+@media only screen and (min-width: 1400px) {
+  .hero_content {
+    width: 40%;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+  .hero_content {
+    width: 45%;
+  }
+}
+@media only screen and (min-width: 767px) and (max-width: 1400px) {
+  .hero_content {
+    width: 60%;
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .hero_content {
+    width: 80%;
+  }
+}
+@media (max-width: 767px) {
+  .hero_content {
+    width: 100%;
+  }
+}
+
+
+
+
+.hero_content .hero_title {
+  font-size: 60px;
+  line-height: 85px;
+  color: #fff;
+  margin-top: 15px;
+}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .hero_content .hero_title {
+    font-size: 44px;
+    line-height: 65px;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .hero_content .hero_title {
+    font-size: 40px;
+    line-height: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero_content .hero_title {
+    font-size: 24px;
+    line-height: 38px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .hero_content .hero_title {
+    font-size: 40px;
+    line-height: 60px;
+  }
+}
+.hero_content .hero_title span {
+  display: contents;
+  color: #E84E4E;
+}
+.hero_content p {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 30px;
+}
+@media (max-width: 767px) {
+  .hero_content p {
+    font-size: 16px;
+  }
+}
+.hero_content .main-btn {
+  margin-top: 45px;
+}
+.hero_content .row {
+  justify-content: center;
+}
+
+
+/*=====================
+    footer
+========================*/
+.footer_area {
+  background-color: #E84E4E;
+  padding-top: 15px;
+  padding-bottom: 30px;
+}
+
+.footer_menu ul li {
+  display: inline-block;
+  padding-top: 5px;
+}
+
+.footer_menu ul li + li {
+  margin-left: 30px;
+}
+
+@media (max-width: 767px) {
+  .footer_menu ul li + li {
+    margin-left: 15px;
+  }
+}
+
+.footer_menu ul li a {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease-out 0s;
+}
+.footer_menu ul li a:hover {
+  color: #fff;
+}
+
+.credit {
+  font-size: 16px;
+  color: #fff;
+  padding-top: 15px;
+}
+
+.credit a {
+  color: #fff;
+}
+
+.footer_social ul li {
+  display: inline-block;
+}
+
+.footer_social ul li + li {
+  margin-left: 30px;
+}
+
+.footer_social ul li a {
+  font-size: 26px;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease-out 0s;
+}
+
+.footer_social ul li a:hover {
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .footer_social ul li a {
+    font-size: 20px;
+  }
+}
+
+/*+=================
+login form
+===================*/
+.form-group > label {
+  color: snow;
+}
+.form-group > div{
+  text-align: start;
+}
+.formTitle {
+  color: white;
+}
+#login {
+  margin-top:35px;
+  margin-bottom: 10px;
+}
+#passwordHelpBlock > ul {
+  color: snow;
+  margin-top: 50px;
+  text-align: start;
+}

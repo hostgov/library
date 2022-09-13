@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 31">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: TimesNewRomanPSMT, 'Times New Roman';
+        font-size: 8px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #e84e4e;
+      }
+
+      .cls-3 {
+        letter-spacing: -.04em;
+      }
+
+      .cls-4 {
+        letter-spacing: -.06em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <text class="cls-1" transform="translate(33.1 13.39)"><tspan x="0" y="0">AUSTRALI</tspan><tspan class="cls-4" x="39.56" y="0">A</tspan></text>
+  </g>
+  <g id="Layer_3" data-name="Layer 3">
+    <text class="cls-1" transform="translate(32.41 22.26)"><tspan x="0" y="0">UNIVERSIT</tspan><tspan class="cls-3" x="42.22" y="0">Y</tspan></text>
+  </g>
+  <g id="Layer_4" data-name="Layer 4">
+    <path class="cls-2" d="M16.9,7.72l-.85-.42-.83,.46c-.75,.42-1.66-.21-1.53-1.06l.14-.94-.69-.65c-.63-.59-.31-1.64,.54-1.78l.93-.16,.4-.86c.36-.78,1.46-.8,1.86-.04l.44,.84,.94,.12c.85,.11,1.22,1.14,.61,1.76l-.66,.68,.18,.93c.16,.84-.71,1.51-1.48,1.13Z"/>
+    <path class="cls-2" d="M8,9v10c0,3.87,3.58,7,8,7s8-3.13,8-7V9H8Zm2,4.25l5-2.71v11.92l-5-2.71v-6.5Zm12,6.5l-5,2.71V10.54l5,2.71v6.5Z"/>
+    <path class="cls-2" d="M22.36,8.53l-.49-.25-.47,.27c-.43,.24-.95-.12-.88-.62l.08-.55-.4-.38c-.36-.35-.18-.96,.31-1.05l.54-.09,.23-.5c.21-.46,.84-.47,1.07-.02l.25,.49,.54,.07c.49,.06,.7,.67,.35,1.03l-.38,.4,.1,.55c.09,.5-.41,.89-.85,.66Z"/>
+    <path class="cls-2" d="M10.6,8.53l-.49-.25-.47,.27c-.43,.24-.95-.12-.88-.62l.08-.55-.4-.38c-.36-.35-.18-.96,.31-1.05l.54-.09,.23-.5c.21-.46,.84-.47,1.07-.02l.25,.49,.54,.07c.49,.06,.7,.67,.35,1.03l-.38,.4,.1,.55c.09,.5-.41,.89-.85,.66Z"/>
+  </g>
+</svg>
