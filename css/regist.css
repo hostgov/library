@@ -1,3 +1,4 @@
+
 /*header_navbar*/
 .header_navbar {
   position: absolute;
@@ -102,24 +103,24 @@
 
 /*=====================hero=============*/
 .single_hero {
-  height: 750px;
+  height: 950px;
   position: relative;
   overflow: hidden;
   z-index: 1;
 }
 
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .single_hero {
-    height: 700px;
-  }
-}
+/*@media only screen and (min-width: 768px) and (max-width: 991px) {*/
+/*  .single_hero {*/
+/*    height: 700px;*/
+/*  }*/
+/*}*/
 
-@media (max-width: 767px) {
-  .single_hero {
-    height: 650px;
-  }
-}
+/*@media (max-width: 767px) {*/
+/*  .single_hero {*/
+/*    height: 650px;*/
+/*  }*/
+/*}*/
 
 /*image cover on hero*/
 .single_hero::before {
@@ -305,10 +306,7 @@ login form
 .formTitle {
   color: white;
 }
-#login {
-  margin-top:35px;
-  margin-bottom: 10px;
-}
+
 #passwordHelpBlock > ul {
   color: snow;
   margin-top: 50px;
