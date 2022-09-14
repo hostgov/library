@@ -60,6 +60,12 @@
                                 <li class="nav-item">
                                     <a class="page-scroll" href="#contact">Contact</a>
                                 </li>
+                                <li class="nav-item" id="loginBtn">
+                                    <a href="../login.html">Login</a>
+                                </li>
+                                <li class="nav-item" id="logoutBtn" hidden>
+                                    <a href="#">Logout</a>
+                                </li>
                             </ul>
                         </div> <!--navbar collapse-->
                     </nav> <!--navbar-->
@@ -328,5 +334,17 @@
 <script src="./js/wow.min.js"></script>
 <script src="./js/index.js"></script>
 <script src="./js/contact-form.js"></script>
+<script src="../js/common.js"></script>
+<script>
+    const logoutBtn = document.getElementById("logoutBtn")
+    logoutBtn.addEventListener("click", e => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (window.confirm("Please confirm you want to log out")) {
+            logout();
+            location.href = '/library/common/index.html'
+        }
+    })
+</script>
 </body>
 </html>

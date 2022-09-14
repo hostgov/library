@@ -295,7 +295,7 @@ h2 {
 }
 
 /*+=================
-login form
+ form
 ===================*/
 .form-group > label {
   color: snow;
@@ -306,9 +306,11 @@ login form
 .formTitle {
   color: white;
 }
-
+.justify-content-center {
+  margin-top: 50px;
+}
 #passwordHelpBlock > ul {
   color: snow;
-  margin-top: 50px;
+  margin-top: 10px;
   text-align: start;
 }

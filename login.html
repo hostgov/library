@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="./common/css/default.css">
   <link rel="stylesheet" href="./css/login.css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./js/common.js"></script>
 
 </head>
 <body>
@@ -36,7 +37,7 @@
         <div class="col-lg-12">
           <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="index.html">
-              <img id="logo" src="/common/images/logo-white-trans-svg.svg" alt="logo">
+              <img id="logo" src="./common/images/logo-white-trans-svg.svg" alt="logo">
             </a>
             <button id="navbar-toggler" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -60,6 +61,12 @@
                 <li class="nav-item">
                   <a class="page-scroll" href="/common/index.html#contact">Contact</a>
                 </li>
+                <li class="nav-item" id="loginBtn">
+                  <a href="./login.html">Login</a>
+                </li>
+                <li class="nav-item" id="logoutBtn" hidden>
+                  <a href="#">Logout</a>
+                </li>
               </ul>
             </div> <!--navbar collapse-->
           </nav> <!--navbar-->
@@ -69,7 +76,7 @@
   </div> <!--header navbar-->
   <div class="header_hero">
     <div class="single_hero bg_cover d-flex align-items-center"
-         style="background-image: url(/common/images/hero-library.jpg)">
+         style="background-image: url(./common/images/hero-library.jpg)">
       <div class="container">
         <div class="row justify-content-center">
 
@@ -120,29 +127,43 @@
 </section>
 <script>
   const loginForm = document.getElementById("loginform")
-  loginForm.addEventListener('submit', () => {
-    const email = document.getElementById('email').value.trim()
-    const password = document.getElementById('password').value.trim()
-    //todo validation
-    const params = new FormData()
-    params.append('email', email)
-    params.append('password', password)
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    login()
+    // const email = document.getElementById('email').value.trim()
+    // const password = document.getElementById('password').value.trim()
+    // //todo validation
+    // const params = new FormData()
+    // params.append('email', email)
+    // params.append('password', password)
+    //
+    // axios({
+    //   url: './php/login.php',
+    //   method: 'POST',
+    //   data: params
+    // }).then(
+    //   response => {
+    //     alert('Login successfully. Welcome back' + response.data.firstName, 'success')
+    //     localStorage.setItem("login_member", response.data)
+    //     location.href = './bookshelf.html'
+    //   },
+    //   error => {
+    //     alert(error.message, 'danger')
+    //   }
+    // )
 
-    axios({
-      url: './php/login.php',
-      method: 'POST',
-      data: params
-    }).then(
-      response => {
-        alert('success', 'success')
-        location.href = './bookshelf.html'
-      },
-      error => {
-        alert(error.message, 'danger')
-      }
-    )
 
+  })
 
+  const logoutBtn = document.getElementById("logoutBtn")
+  logoutBtn.addEventListener("click", e => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (window.confirm("Please confirm you want to log out")) {
+      logout();
+      location.href = '/library/common/index.html'
+    }
   })
 
 </script>

@@ -1,4 +1,5 @@
 <?php
+include_once "base_params.php";
 const SIGNUPENUM = array(
   "0"=>"SUCCESS",
   "1"=>"DATABASE CONNECTION ERROR",
@@ -45,5 +46,9 @@ const GETBOOKSDATA = array(
 );
 const LOGIN = array(
     "0"=>"SUCCESS",
-    "1"=>"email or password combine does not exit in database"
+    "1"=>"email or password combine does not exit in database",
+    "2"=>"login attempted too frequently, please try again later",
+    "3"=>"you have been already login",
+    "4"=>"email is invalid",
+    "5"=>"password is invalid"
 );
