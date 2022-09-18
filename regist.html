@@ -14,14 +14,16 @@
           integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
           crossorigin="anonymous"></script>
 
+  <!--====== Line Icons CSS ======-->
+  <link rel="stylesheet" href="css/LineIcons.2.0.css">
   <!--====== Animate CSS ======-->
-  <link rel="stylesheet" href="./common/css/animate.css">
+  <link rel="stylesheet" href="css/animate.css">
 
   <!--====== Glide CSS ======-->
-  <link rel="stylesheet" href="./common/css/tiny-slider.css">
+  <link rel="stylesheet" href="css/tiny-slider.css">
   <!--====== Default CSS ======-->
   <link rel="stylesheet" href="./css/common.css">
-  <link rel="stylesheet" href="./common/css/default.css">
+  <link rel="stylesheet" href="./css/default.css">
   <link rel="stylesheet" href="./css/regist.css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -34,7 +36,7 @@
         <div class="col-lg-12">
           <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="index.html">
-              <img id="logo" src="./common/images/logo-white-trans-svg.svg" alt="logo">
+              <img id="logo" src="images/logo-white-trans-svg.svg" alt="logo">
             </a>
             <button id="navbar-toggler" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -47,16 +49,25 @@
             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
               <ul id="nav" class="navbar-nav ms-auto">
                 <li class="nav-item">
-                  <a class="page-scroll" href="#home">Home</a>
+                  <a class="page-scroll" href="./index.html#home">Home</a>
                 </li>
                 <li class="nav-item">
-                  <a class="page-scroll" href="/common/index.html#features">About</a>
+                  <a class="page-scroll" href="./index.html#features">About</a>
                 </li>
                 <li class="nav-item">
-                  <a class="page-scroll" href="/common/index.html#gallery">Gallery</a>
+                  <a class="page-scroll" href="./index.html#gallery">Gallery</a>
                 </li>
                 <li class="nav-item">
-                  <a class="page-scroll" href="/common/index.html#contact">Contact</a>
+                  <a class="page-scroll" href="./index.html#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a href="./bookshelf.html">Books</a>
+                </li>
+                <li class="nav-item" id="loginBtn">
+                  <a href="login.html">Login</a>
+                </li>
+                <li class="nav-item" id="logoutBtn" hidden>
+                  <a href="#">Logout</a>
                 </li>
               </ul>
             </div> <!--navbar collapse-->
@@ -68,7 +79,7 @@
   <div id="liveAlertPlaceholder"></div>
   <div class="header_hero">
     <div class="single_hero bg_cover d-flex align-items-center"
-         style="background-image: url(./common/images/hero-library.jpg)">
+         style="background-image: url(images/hero-library.jpg)">
       <div class="container">
         <div class="row justify-content-center">
           <div class="hero_content">
@@ -148,7 +159,7 @@
   </div> <!-- container -->
 </section>
 
-<script src=""></script>
+<script src="./js/common.js"></script>
 <script>
   const inputFirstName = document.getElementById("inputFirstName")
   const inputLastName = document.getElementById("inputLastName")
@@ -331,6 +342,11 @@
     }
 
 
+  })
+
+  window.addEventListener("load", ()=> {
+    checkLoginFront()
+    checkLoginBack()
   })
 
 

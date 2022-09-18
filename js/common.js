@@ -1,49 +1,95 @@
-const logout = () => {
-    axios.get("./php/logout.php").then(
-        response => {
-            localStorage.removeItem("login_member")
-            const loginBtn = document.getElementById("loginBtn")
-            const logoutBtn = document.getElementById("logoutBtn")
-            loginBtn.removeAttribute("hidden")
-            logoutBtn.setAttribute("hidden", "true")
-            alert("logout successfully", "success")
-        },
-        error => {
-            alert("logout failed", "danger")
-        }
-    )
+const changeBtnLoginLogout = (type) => {
+    const loginBtn = document.getElementById("loginBtn")
+    const logoutBtn = document.getElementById("logoutBtn")
+    if (type === "login") {
+        logoutBtn.removeAttribute("hidden")
+        loginBtn.setAttribute("hidden", "true")
+    } else {
+        loginBtn.removeAttribute("hidden")
+        logoutBtn.setAttribute("hidden", "true")
+    }
+
 }
 
-const login = () => {
-    const email = document.getElementById('email').value.trim()
-    const password = document.getElementById('password').value.trim()
-    //todo validation
-    const params = new FormData()
-    params.append('email', email)
-    params.append('password', password)
+const logout = () => {
+    if (window.confirm("Please confirm you want to log out")) {
+        axios.get("../php/logout.php").then(
+            response => {
+                localStorage.removeItem("login_member")
+                changeBtnLoginLogout("logout")
+                alert("logout successfully", "success")
+            },
+            error => {
+                alert("logout failed", "danger")
+            }
+        )
 
+    }
+
+}
+
+
+
+const checkLoginBack = () => {
     axios({
-        url: './php/login.php',
-        method: 'POST',
-        data: params
+        url: './php/authentication.php',
+        method: 'POST'
     }).then(
         response => {
-            console.log(response)
-            if (response.data.code === "0") {
-                alert('Login successfully. Welcome back ' + response.data.data.firstName, 'success')
-                localStorage.setItem("login_member", JSON.stringify(response.data.data))
-                const loginBtn = document.getElementById("loginBtn")
-                const logoutBtn = document.getElementById("logoutBtn")
-                logoutBtn.removeAttribute("hidden")
-                loginBtn.setAttribute("hidden", "true");
-                location.href = './bookshelf.html'
+            if (response.data.code === "2" || response.data.code === "3") {
+                changeBtnLoginLogout("login")
             } else {
-                alert('Login failed ' + response.data.message)
+                changeBtnLoginLogout("logout")
             }
-
         },
         error => {
             alert(error.message, 'danger')
         }
     )
 }
+const checkLoginFront = () => {
+    if (localStorage.getItem("login_member")) {
+        if (window.confirm("You have already login, do you want to log out ?") ) {
+            logout()
+        } else {
+            location.href = "/library/index.html"
+        }
+    }
+}
+async function  checkAdmin ()  {
+    await axios({
+        url: '../php/authentication.php',
+        method: 'POST'
+    }).then(
+        response => {
+            if (response.data.code === "3") {
+                changeBtnLoginLogout("login")
+                return true
+            } else {
+                alert('You are not login or login without admin role, redirect to index page', 'danger')
+                // setInterval(() => {
+                //     location.href= "/library/index.html"
+                // }, 2000)
+                return false
+                // location.href= "/library/index.html"
+            }
+
+        },
+        error => {
+            alert(error.message, 'danger')
+            // setInterval(() => {
+            //     location.href= "/library/index.html"
+            // }, 2000)
+            return false
+            // location.href= "/library/index.html"
+        }
+    )
+}
+
+const logoutBtn = document.getElementById("logoutBtn")
+logoutBtn.addEventListener("click", e => {
+    e.preventDefault()
+    e.stopPropagation()
+    logout()
+    location.href = '/library/index.html'
+})

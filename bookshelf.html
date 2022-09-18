@@ -14,21 +14,68 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
             crossorigin="anonymous"></script>
-    <!--====== Animate CSS ======-->
-    <link rel="stylesheet" href="./common/css/animate.css">
-    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
-    <!--====== Glide CSS ======-->
-    <link rel="stylesheet" href="./common/css/tiny-slider.css">
-    <!--====== Default CSS ======-->
-    <link rel="stylesheet" href="./css/common.css">
-    <link rel="stylesheet" href="./common/css/default.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--====== Line Icons CSS ======-->
+    <link rel="stylesheet" href="css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/default.css">
     <link rel="stylesheet" href="./css/bookshelf.css">
 
 </head>
 <body>
 
 <section id="home" class="header_area">
+    <div id="header_navbar" class="header_navbar sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" href="index.html">
+                            <img id="logo" src="images/logo-red-trans-svg.svg" alt="logo">
+                        </a>
+                        <button id="navbar-toggler" class="navbar-toggler collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            <ul id="nav" class="navbar-nav ms-auto">
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="./index.html#home">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="./index.html#features">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="./index.html#gallery">Gallery</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="./index.html#contact">Contact</a>
+                                </li>
+                                <li class="nav-item" >
+                                    <a class="active" href="./bookshelf.html">Books</a>
+                                </li>
+                                <li class="nav-item" id="loginBtn">
+                                    <a href="./login.html">Login</a>
+                                </li>
+                                <li class="nav-item" id="logoutBtn" hidden>
+                                    <a href="#">Logout</a>
+                                </li>
+                            </ul>
+                        </div> <!--navbar collapse-->
+                    </nav> <!--navbar-->
+                </div>
+            </div> <!--row-->
+        </div> <!--container -->
+    </div> <!--header navbar-->
+
+</section>
+<div id="liveAlertPlaceholder"></div>
+<section>
     <div class=" modal fade modal-lg" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
          tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -111,125 +158,95 @@
             </div>
         </div>
     </div>
-    <div id="header_navbar" class="header_navbar">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <nav class="navbar navbar-expand-lg">
-                        <a class="navbar-brand" href="index.html">
-                            <img id="logo" src="./common/images/logo-white-trans-svg.svg" alt="logo">
-                        </a>
-                        <button id="navbar-toggler" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
+    <div class="container bookshelfWrapper">
+        <div class="row justify-content-center">
+            <main>
+                <div class="main-top">
+                    <div class="input-group input-group-sm mb-0 justify-content-center">
+                        <button type="button" hidden class="btn btn-primary btn-md"
+                                data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">ADD
                         </button>
-
-                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                            <ul id="nav" class="navbar-nav ms-auto">
-                                <li class="nav-item">
-                                    <a class="page-scroll" href="#home">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="page-scroll" href="/common/index.html#features">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="page-scroll" href="/common/index.html#gallery">Gallery</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="page-scroll" href="/common/index.html#contact">Contact</a>
-                                </li>
-                            </ul>
-                        </div> <!--navbar collapse-->
-                    </nav> <!--navbar-->
-                </div>
-            </div> <!--row-->
-        </div> <!--container -->
-    </div> <!--header navbar-->
-    <!-- Modal -->
-
-
-    <div class="header_hero">
-        <div class="single_hero bg_cover d-flex align-items-center"
-             style="background-image: url(./common/images/hero-library.jpg)">
-            <div class="container bookshelfWrapper">
-                <div class="row justify-content-center">
-                    <div class="hero_content">
-                        <div class="container">
-
-                            <div id="liveAlertPlaceholder"></div>
-                            <main>
-                                <div class="main-top">
-                                    <div class="input-group input-group-sm mb-0 justify-content-center">
-                                        <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop">ADD
-                                        </button>
-                                        <label class="input-group-text" for="inputSearchType">Mode</label>
-                                        <select class="col-md-1" id="inputSearchType">
-                                            <option value="1">Fuzzy</option>
-                                            <option value="2">Exact</option>
-                                        </select>
-                                        <label class="input-group-text" for="inputColName">By</label>
-                                        <select class="col-md-1" id="inputColName">
-                                            <option value="1">Book Title</option>
-                                            <option value="2">Author</option>
-                                            <option value="3">Publisher</option>
-                                            <option value="4">Language</option>
-                                            <option value="5">Category</option>
-                                        </select>
-                                        <input type="text" class="col-md-4"
-                                               id="inputSearchContent"
-                                               placeholder="Input content for searching"
-                                               aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <button class="btn btn-outline-secondary btn-primary" style="color:white" type="button"
-                                                id="btnSearch">Search
-                                        </button>
-                                    </div>
-                                </div>
-                                <div id="cardsWrapper" class="portfolio">
-
-                                </div>
-                                <div class="main-bot">
-                                    <nav id="pageWrapper" aria-label="Page navigation" style="height: 35px;">
-                                        <ul class="pagination pagination-sm justify-content-center">
-                                            <li class="page-item">
-                                                <a id="btnFirstPage" class="page-link" href="#">First</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a id="btnPrevPage" class="page-link" href="#">Prev</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a id="btnNextPage" class="page-link" href="#">Next</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a id="btnLastPage" class="page-link" href="#">Last</a>
-                                            </li>
-                                            <li>
-                                                <div class="input-group input-group-sm">
-                                                    <label class="input-group-text" for="selectPage">Go to</label>
-                                                    <select id="selectPage">
-                                                        <option value="1">1</option>
-                                                        <option selected value="2">2</option>
-                                                    </select>
-                                                </div>
-                                            </li>
-                                        </ul>
-
-                                    </nav>
-                                </div>
-                            </main>
-                            <footer></footer>
-
-
-                        </div>
+                        <label class="input-group-text" hidden for="inputSearchType">Mode</label>
+                        <select class="col-md-1" hidden id="inputSearchType">
+                            <option value="1">Fuzzy</option>
+                            <option value="2">Exact</option>
+                        </select>
+                        <label class="input-group-text" for="inputColName">By</label>
+                        <select class="col-md-1" id="inputColName">
+                            <option value="1">Book Title</option>
+                            <option value="2">Author</option>
+                            <option value="3">Publisher</option>
+                            <option value="4">Language</option>
+                            <option value="5">Category</option>
+                        </select>
+                        <input type="text" class="col-md-4"
+                               id="inputSearchContent"
+                               placeholder="Input content for searching"
+                               aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary btn-primary" style="color:white"
+                                type="button"
+                                id="btnSearch">Search
+                        </button>
                     </div>
                 </div>
-            </div>
-        </div> <!--single hero-->
-    </div><!-- header hero-->
+                <div id="cardsWrapper" class="portfolio">
 
+                </div>
+                <div class="main-bot">
+<!--                    <nav id="pageWrapper" aria-label="Page navigation" style="height: 35px;">-->
+<!--                        <ul class="pagination pagination-sm justify-content-center">-->
+<!--                            <li class="page-item">-->
+<!--                                <a id="btnFirstPage" class="page-link" href="#">First</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a id="btnPrevPage" class="page-link" href="#">Prev</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a id="btnNextPage" class="page-link" href="#">Next</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a id="btnLastPage" class="page-link" href="#">Last</a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <div class="input-group input-group-sm">-->
+<!--                                    <label class="input-group-text" for="selectPage">Go to</label>-->
+<!--                                    <select id="selectPage">-->
+<!--                                        <option value="1">1</option>-->
+<!--                                        <option selected value="2">2</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+
+<!--                    </nav>-->
+                    <nav aria-label="Page navigation" class="justify-content-center" style="display: flex; height: 34.68px">
+                        <ul class="pagination pagination-sm justify-content-center">
+                            <li class="page-item">
+                                <a id="btnFirstPage" class="page-link" href="#">First</a>
+                            </li>
+                            <li class="page-item">
+                                <a id="btnPrevPage" class="page-link" href="#">Prev</a>
+                            </li>
+                            <li class="page-item">
+                                <a id="btnNextPage" class="page-link" href="#">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a id="btnLastPage" class="page-link" href="#">Last</a>
+                            </li>
+                        </ul>
+                        <div id="currPage" class="input-group input-group-sm mb-0">
+                            <label class="input-group-text" for="selectPage">Current Page</label>
+                            <select id="selectPage" class="col-md-1">
+                                <option value="1">1</option>
+                                <option selected value="2">2</option>
+                            </select>
+                        </div>
+                    </nav>
+                </div>
+            </main>
+        </div>
+    </div>
 </section>
 
 <section id="footer" class="footer_area">
@@ -248,6 +265,7 @@
     </div> <!-- container -->
 </section>
 
+<script src="./js/common.js"></script>
 
 
 <script>
@@ -355,6 +373,7 @@
     }
     window.addEventListener('load', () => {
         getAllBookData(1)
+        checkLoginBack()
     })
 
 
@@ -458,9 +477,9 @@
 
             for (let i = 0; i < data.length; i++) {
                 cardsWrapper.innerHTML += `
-<figure class="">
+<figure class="${data[i].status}">
         <img src="${data[i].image}" alt="Book Cover">
-        <figcaption>Detail...</figcaption>
+        <figcaption>${data[i].status}</figcaption>
 </figure>
 `
             }
@@ -468,36 +487,7 @@
             alert('No searching result from database!', 'success')
         }
     }
-    // const fillTable = data => {
-    //     if (data && data.length !== 0) {
-    //         // console.log(data)
-    //         displayTbody.innerHTML = ''
-    //         for (let i = 0; i < data.length; i++) {
-    //             displayTbody.innerHTML += `
-    //                 <tr>
-    //                 <td>${data[i].id}</td>
-    //                 <td colspan="2" class="bookTitleTd" style="font-style: oblique">${data[i].book_title}</td>
-    //                 <td colspan="2">${data[i].author}</td>
-    //                 <td colspan="2">${data[i].publisher}</td>
-    //                 <td>${data[i].language}</td>
-    //                 <td>${data[i].category}</td>
-    //                 <td>${data[i].status}</td>
-    //                 <td><img src="${data[i].image}" alt="book cover image"></td>
-    //                 <td>
-    //                     <button type="button" class="btn btn-warning btn-sm"
-    //                             style="--bs-btn-padding-x:1rem; color:white" onclick="handleEdit(${data[i].id})">edit
-    //                     </button>
-    //                     <button type="button" class="btn btn-danger btn-sm" onclick="handleDelete(${data[i].id})">delete
-    //                     </button>
-    //
-    //                 </td>
-    //             </tr>
-    //             `
-    //         }
-    //     } else {
-    //         alert('No searching result from database!', 'success')
-    //     }
-    // }
+
     const handleEdit = (id) => {
         console.log('edit' + id)
     }

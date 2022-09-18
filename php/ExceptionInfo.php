@@ -52,3 +52,13 @@ const LOGIN = array(
     "4"=>"email is invalid",
     "5"=>"password is invalid"
 );
+const lOGOUT = array(
+    "0"=>"SUCCESS"
+);
+
+const AUTHEN = array(
+    "0"=>"",
+    "1"=>"no login",
+    "2"=>"login member",
+    "3"=>"login admin"
+);

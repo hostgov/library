@@ -15,21 +15,71 @@
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
             crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="booksmanagement.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/LineIcons.2.0.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/default.css">
     <style>
-        img {
-            max-width: 70px;
-        }
 
-        th, td {
-            vertical-align: middle;
-        }
+
+
     </style>
 </head>
 <body>
+<section id="home" class="header_area">
+    <div id="header_navbar" class="header_navbar sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" href="../index.html">
+                            <img id="logo" src="../images/logo-red-trans-svg.svg" alt="logo">
+                        </a>
+                        <button id="navbar-toggler" class="navbar-toggler collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            <ul id="nav" class="navbar-nav ms-auto">
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="../index.html#home">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="../index.html#features">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="../index.html#gallery">Gallery</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="page-scroll" href="../index.html#contact">Contact</a>
+                                </li>
+                                <li class="nav-item" >
+                                    <a class="" href="../bookshelf.html">Books</a>
+                                </li>
+                                <li class="nav-item" id="loginBtn">
+                                    <a href="../login.html">Login</a>
+                                </li>
+                                <li class="nav-item" id="logoutBtn" hidden>
+                                    <a href="#">Logout</a>
+                                </li>
+                            </ul>
+                        </div> <!--navbar collapse-->
+                    </nav> <!--navbar-->
+                </div>
+            </div> <!--row-->
+        </div> <!--container -->
+    </div> <!--header navbar-->
+
+</section>
 <div class="container">
-    <div id="liveAlertPlaceholder"></div>
+
     <div class="row"></div>
-    <div class="row">
+    <div class="row content">
         <div class="col-1"></div>
         <div class="col">
             <table class="table table-hover caption-top">
@@ -204,7 +254,22 @@
         </div>
     </div>
 </div>
-
+<section id="footer" class="footer_area">
+    <div class="container">
+        <div class="footer_wrapper text-center d-lg-flex align-items-center justify-content-between">
+            <p class="credit">Designed and Developed by <a href="#" rel="nofollow">R.Q</a></p>
+            <div class="footer_social pt-15">
+                <ul>
+                    <li><a href="#"><i class="lni lni-facebook-original"></i></a></li>
+                    <li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
+                    <li><a href="#"><i class="lni lni-instagram-original"></i></a></li>
+                    <li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
+                </ul>
+            </div> <!-- footer social -->
+        </div> <!-- footer wrapper -->
+    </div> <!-- container -->
+</section>
+<script src="../js/common.js"></script>
 
 <script>
     const inputImage = document.getElementById("inputImage")
@@ -229,8 +294,8 @@
     axios.defaults.withCredentials = true
     axios.interceptors.request.use(
         config => {
-            if (localStorage.eleToken) {
-                config.headers.Authorization = localStorage.eleToken
+            if (localStorage.member_login) {
+                config.headers.Authorization = localStorage.member_login
             }
             return config
         },
@@ -245,8 +310,8 @@
         error => {
             const {status} = error.response
             if (status === 401) {
-                localStorage.removeItem('eleToken')
-                location.href = '/login.html'
+                localStorage.removeItem('member_login')
+                location.href = '../login.html'
             }
             return Promise.reject(error)
         }
@@ -311,14 +376,12 @@
         params.append('pageNumber', pageNumber)
         getBookData(params)
     }
-    window.addEventListener('load', () => {
-        getAllBookData(1)
-    })
+
 
 
     const getBookData = (params) => {
         axios({
-            url: './getbooksdata.php',
+            url: '../php/getbooksdata.php',
             method: 'POST',
             data: params
         }).then(
@@ -468,7 +531,7 @@
                 }
             }
             axios({
-                url: './add.php',
+                url: '../php/add.php',
                 method: 'POST',
                 data: param,
                 config: config
@@ -594,18 +657,26 @@
         }
     }
 
-    const alert = (message, type) => {
-        const wrapper = document.createElement('div')
-        wrapper.innerHTML = [
-            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-            `   <div>${message}</div>`,
-            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-            '</div>'
-        ].join('')
-        alertPlaceholder.append(wrapper)
-    }
+    // const alert = (message, type) => {
+    //     const wrapper = document.createElement('div')
+    //     wrapper.innerHTML = [
+    //         `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    //         `   <div>${message}</div>`,
+    //         '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    //         '</div>'
+    //     ].join('')
+    //     alertPlaceholder.append(wrapper)
+    // }
 
 
+    window.addEventListener('load', async function () {
+        const res = await checkAdmin()
+        if (res) {
+            getAllBookData(1)
+        } else {
+            location.href = "../index.html"
+        }
+    })
 </script>
 
 </body>

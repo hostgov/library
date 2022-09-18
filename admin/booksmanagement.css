@@ -181,68 +181,12 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-.bookshelfWrapper {
-
+td > img {
+    max-width: 70px;
 }
-
-
-
-
-body {
-
-    font-family: Helvetica, Arial, sans-serif;
+th, td {
+    vertical-align: middle;
 }
-.portfolio > figure {
-    display: inline-block;
-    max-width: 350px;
-    margin: 0;
-}
-.portfolio img {
-    max-width: 100%;
-    object-fit: cover;
-}
-.portfolio figcaption {
-    padding: 0.3em 0.8em;
-    background-color: rgba(0,0,0,0.5);
-    color: #fff;
-    text-align: right;
-}
-
-@supports (display: grid) {
-    .portfolio {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, .8fr));
-        grid-auto-rows: 1fr;
-        grid-gap: 2em;
-        grid-auto-flow: dense;
-        justify-content: center;
-        margin:25px auto;
-        padding: 0 15px;
-    }
-    .portfolio > figure {
-        display: flex;
-        flex-direction: column;
-        max-width: initial;
-        padding: 10px;
-        background-color: snow;
-    }
-    .portfolio img {
-        flex: 1;
-    }
-    .portfolio .featured {
-        grid-row: span 2;
-        grid-column: span 2;
-    }
-    .portfolio .clicked {
-
-    }
+.content {
+    margin-top: 80px;
 }
