@@ -220,7 +220,7 @@
 <!--                        </ul>-->
 
 <!--                    </nav>-->
-                    <nav aria-label="Page navigation" class="justify-content-center" style="display: flex; height: 34.68px">
+                    <nav aria-label="Page navigation" class="justify-content-center" hidden id="pageWrapper" style="display: flex; height: 34.68px">
                         <ul class="pagination pagination-sm justify-content-center">
                             <li class="page-item">
                                 <a id="btnFirstPage" class="page-link" href="#">First</a>
@@ -398,6 +398,69 @@
             }
         )
     }
+
+    const handleClick = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const {searchType, curPage, totalPage} = e.target._params
+        if (e.target._params.ele === "firstPage") {
+          if (curPage === 1) {
+            return
+          }
+          if (searchType === 'all') {
+            getAllBookData(1)
+          } else {
+            getBookDataByConditions(1)
+          }
+        } else if (e.target._params.ele === "prevPage") {
+          if (curPage === 1) {
+            return
+          }
+          if (searchType === 'all') {
+            getAllBookData(curPage - 1)
+          } else {
+            getBookDataByConditions(curPage - 1)
+          }
+        } else if (e.target._params.ele === "nextPage") {
+          if (curPage === totalPage) {
+            return
+          }
+          if (searchType === 'all') {
+            getAllBookData(curPage + 1)
+          } else {
+            getBookDataByConditions(curPage + 1)
+          }
+        } else if (e.target._params.ele === "lastPage") {
+          if (curPage === totalPage) {
+            return
+          }
+          if (searchType === 'all') {
+            getAllBookData(totalPage)
+          } else {
+            getBookDataByConditions(totalPage)
+          }
+        } else if (e.target._params.ele === "gotoPage") {
+          const selectPage = document.getElementById("selectPage")
+          const gotoPage = parseInt(selectPage.options[selectPage.selectedIndex].text.trim())
+          if (gotoPage < 1 || gotoPage > totalPage) {
+            return
+          }
+          if (searchType === 'all') {
+            getAllBookData(gotoPage)
+          } else {
+            getBookDataByConditions(gotoPage)
+          }
+        } else {
+
+        }
+
+      }
+
+
+
+
+
+
     const makePagination = (page) => {
         const pageWrapper = document.getElementById("pageWrapper")
         if (page) {
@@ -418,54 +481,35 @@
                 }
                 selectPage.appendChild(option)
             }
-            btnFirstPage.addEventListener('click', (e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                if (searchType === 'all') {
-                    return getAllBookData(1)
-                } else {
-                    return getBookDataByConditions(1)
-                }
-            })
-            btnPrevPage.addEventListener('click', (e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                if (searchType === 'all') {
-                    return getAllBookData(prevPage)
-                } else {
-                    return getBookDataByConditions(prevPage)
-                }
-            })
-            btnNextPage.addEventListener('click', (e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                if (searchType === 'all') {
-                    return getAllBookData(nextPage)
-                } else {
-                    return getBookDataByConditions(nextPage)
-                }
-            })
-            btnLastPage.addEventListener('click', (e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                if (searchType === 'all') {
-                    return getAllBookData(totalPage)
-                } else {
-                    return getBookDataByConditions(totalPage)
-                }
-            })
 
-            selectPage.addEventListener('change', () => {
-                const gotoPage = selectPage.options[selectPage.selectedIndex].text.trim()
-                if (searchType === 'all') {
-                    return getAllBookData(gotoPage)
-                } else {
-                    return getBookDataByConditions(parseInt(gotoPage))
-                }
-            })
-            pageWrapper.style.display = 'block'
+            btnFirstPage.removeEventListener('click', handleClick)
+            btnFirstPage._params = page
+            btnFirstPage._params.ele = "firstPage"
+            btnFirstPage.addEventListener('click', handleClick)
+
+            btnPrevPage.removeEventListener('click', handleClick)
+          btnPrevPage._params = page
+          btnPrevPage._params.ele = "prevPage"
+            btnPrevPage.addEventListener('click', handleClick)
+
+            btnNextPage.removeEventListener('click', handleClick)
+          btnNextPage._params = page
+          btnNextPage._params.ele = "nextPage"
+            btnNextPage.addEventListener('click', handleClick)
+
+            btnLastPage.removeEventListener('click', handleClick)
+          btnLastPage._params = page
+          btnLastPage._params.ele = "lastPage"
+            btnLastPage.addEventListener('click', handleClick)
+
+            selectPage.removeEventListener('change', handleClick)
+          selectPage._params = page
+          selectPage._params.ele = "gotoPage"
+            selectPage.addEventListener('change', handleClick)
+
+            pageWrapper.removeAttribute("hidden")
         } else {
-            pageWrapper.style.display = 'none'
+            pageWrapper.setAttribute("hidden", "true")
         }
 
 

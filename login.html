@@ -136,22 +136,33 @@
 
 
   const login = () => {
-    const email = document.getElementById('email').value.trim()
-    const password = document.getElementById('password').value.trim()
-    //todo validation
-    const params = new FormData()
-    params.append('email', email)
-    params.append('password', password)
-
     axios({
-      url: './php/login.php',
-      method: 'POST',
-      data: params
+      url: '/library/php/authentication.php',
+      method: 'POST'
     }).then(
+      response => {
+        if (response.data.code === "2" || response.data.code === "3") {
+          changeBtnLoginLogout("login")
+          alert('you already logged in , please logout first then come back to login', 'danger')
+        } else {
+          changeBtnLoginLogout("logout")
+          localStorage.clear()
+          const email = document.getElementById('email').value.trim()
+          const password = document.getElementById('password').value.trim()
+          //todo validation
+          const params = new FormData()
+          params.append('email', email)
+          params.append('password', password)
+
+          axios({
+            url: './php/login.php',
+            method: 'POST',
+            data: params
+          }).then(
             response => {
               if (response.data.code === "0") {
                 alert('Login successfully. Welcome back ' + response.data.data.firstName, 'success')
-                localStorage.setItem("login_member", JSON.stringify(response.data.data))
+                // localStorage.setItem("login_member", JSON.stringify(response.data.data))
                 changeBtnLoginLogout("login")
                 if (response.data.data.memberType === "admin") {
                   location.href = './admin/booksmanagement.html'
@@ -166,11 +177,17 @@
             error => {
               alert(error.message, 'danger')
             }
+          )
+        }
+      },
+      error => {
+        alert(error.message, 'danger')
+      }
     )
+
   }
 
   window.addEventListener("load", ()=> {
-    checkLoginFront()
     checkLoginBack()
   })
 
