@@ -234,9 +234,19 @@ body {
         max-width: initial;
         padding: 10px;
         background-color: snow;
+        position: relative;
+        transition: all 1s;
+    }
+    .portfolio > figure:hover {
+
     }
     .portfolio img {
         flex: 1;
+    }
+    .portfolio img:hover {
+        -webkit-filter: blur(10px); /* Chrome, Opera */
+        -ms-filter: blur(10px);
+        filter: blur(10px);
     }
     .portfolio .featured {
         grid-row: span 2;
@@ -245,4 +255,24 @@ body {
     .portfolio .clicked {
 
     }
+    .bookdetail{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        transition: all 1s;
+    }
+    .bookdetail:hover {
+        background: rgba(43, 42, 61, 0.7);
+        cursor: pointer;
+    }
+}
+
+
+.bookCoverWrapper {
+    text-align: center;
+}
+.modal-footer {
+    justify-content: center;
 }

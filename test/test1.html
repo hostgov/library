@@ -16,13 +16,12 @@
 
 <!--</form>-->
 
-<input type="file" name="input" id="fileInput">
-
-<select name="category" class="form-select formField" id="inputCategory">
-  <option value="1">Fiction</option>
-  <option value="2">Nonfiction</option>
-  <option value="3">Reference</option>
-</select>
+<div>
+  <button id="btn">ok</button>
+</div>
+<div>
+  <button id="btn2">remove event for btn</button>
+</div>
 
 <script>
   // const fileInput = document.getElementById("fileInput")
@@ -31,20 +30,21 @@
   //   const file = e.target.files
   //   console.log(file)
   // })
-  const select  = document.getElementById("inputCategory")
-  select.addEventListener("change", (e) => {
-    console.log(e.target.options[e.target.selectedIndex].text)
-    const index = select.selectedIndex
-    console.log(index)
-    console.log(select.options[index].text)
-
-  })
-  window.addEventListener("load", () => {
-    const index = select.selectedIndex
-    console.log(index)
-    console.log(select.options[index].text)
-  })
-
+  const handler = (e) => {
+    console.log("e: " + e)
+    console.log("a: " + e.target._params.a)
+    console.log("b: " + e.target._params.b)
+  }
+  const btn = document.getElementById("btn")
+  // btn.addEventListener('click', handler())
+  const a = 1
+  const b = 2
+  btn._params = {a, b}
+  btn.addEventListener('click', handler)
+  const btn2 = document.getElementById("btn2")
+  btn2.onclick = () => {
+    btn.removeEventListener('click', handler)
+  }
 </script>
 </body>
 </html>

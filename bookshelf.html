@@ -56,7 +56,7 @@
                                 <li class="nav-item">
                                     <a class="page-scroll" href="./index.html#contact">Contact</a>
                                 </li>
-                                <li class="nav-item" >
+                                <li class="nav-item">
                                     <a class="active" href="./bookshelf.html">Books</a>
                                 </li>
                                 <li class="nav-item" id="loginBtn">
@@ -82,7 +82,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addBookCaption">ADD A NEW BOOK</h5>
+                    <h5 class="modal-title" id="addBookCaption">BOOK DETAILS</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -90,56 +90,41 @@
                         <div class="col"></div>
                         <div class="col-8">
                             <form id="bookForm" enctype="multipart/form-data">
+                                <div class="bookCoverWrapper">
+                                    <a target="_blank" id="imgUrl" href="#"><img id="bookCover" src=""
+                                                                                 style="max-width: 200px"
+                                                                                 alt="book cover"></a>
+                                </div>
                                 <div class="form-group mb-3">
                                     <label for="inputBookTitle" class="col-form-label">Book Title</label>
-                                    <input type="text" name="bookTitle" class="form-control formItem"
+                                    <input type="text" disabled name="bookTitle" class="form-control formItem"
                                            id="inputBookTitle" required>
-                                    <div id="inputBookTitleInvalidFeedback" class="invalid-feedback">
-                                        Please input valid book title.
-                                    </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="inputAuthor" class="col-form-label">Author</label>
-                                    <input type="text" name="author" class="form-control formItem" id="inputAuthor"
+                                    <input type="text" disabled name="author" class="form-control formItem"
+                                           id="inputAuthor"
                                            required>
-                                    <div class="invalid-feedback">
-                                        Please input valid author name.
-                                    </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="inputPublisher" class="col-form-label">Publisher</label>
-                                    <input type="text" name="publisher" class="form-control formItem"
+                                    <input type="text" name="publisher" disabled class="form-control formItem"
                                            id="inputPublisher" required>
-                                    <div class="invalid-feedback">
-                                        Please input valid publisher.
-                                    </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="col-form-label" for="inputLanguage">Language</label>
-                                    <select name="language" class="form-select is-valid formItem" id="inputLanguage">
-                                        <option value="1">English</option>
-                                        <option value="2">French</option>
-                                        <option value="3">German</option>
-                                        <option value="4">Mandarin</option>
-                                        <option value="5">Japanese</option>
-                                        <option value="6">Russian</option>
-                                        <option value="7">Other</option>
-                                    </select>
+                                    <input type="text" name="language" disabled class="form-control formItem"
+                                           id="inputLanguage">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="col-form-label" for="inputCategory">Category</label>
-                                    <select name="category" class="is-valid form-select formItem" id="inputCategory">
-                                        <option value="1">Fiction</option>
-                                        <option value="2">Nonfiction</option>
-                                        <option value="3">Reference</option>
-                                    </select>
+                                    <input type="text" name="category" disabled class="form-control formItem"
+                                           id="inputCategory">
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="inputImage" class="col-form-label">Book cover image</label>
-                                    <input name="image" class="form-control formItem" type="file" id="inputImage">
-                                    <div id="fileInputInvalidFeedback" class="invalid-feedback">
-                                        Image size should be smaller than 1MB.
-                                    </div>
+                                    <label class="col-form-label" for="bookStatus">Book Status</label>
+                                    <input type="text" name="bookStatus" disabled class="form-control formItem"
+                                           id="bookStatus">
                                 </div>
                             </form>
                         </div>
@@ -151,8 +136,8 @@
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         submitting...
                     </button>
-                    <button id="submitBtn" type="submit" class="btn btn-primary" form="bookForm">Submit</button>
-                    <button id="closeBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel
+                    <button id="submitBtn" class="btn btn-primary" form="bookForm">I want to borrow</button>
+                    <button id="closeBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                     </button>
                 </div>
             </div>
@@ -163,10 +148,7 @@
             <main>
                 <div class="main-top">
                     <div class="input-group input-group-sm mb-0 justify-content-center">
-                        <button type="button" hidden class="btn btn-primary btn-md"
-                                data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">ADD
-                        </button>
+
                         <label class="input-group-text" hidden for="inputSearchType">Mode</label>
                         <select class="col-md-1" hidden id="inputSearchType">
                             <option value="1">Fuzzy</option>
@@ -194,33 +176,9 @@
 
                 </div>
                 <div class="main-bot">
-<!--                    <nav id="pageWrapper" aria-label="Page navigation" style="height: 35px;">-->
-<!--                        <ul class="pagination pagination-sm justify-content-center">-->
-<!--                            <li class="page-item">-->
-<!--                                <a id="btnFirstPage" class="page-link" href="#">First</a>-->
-<!--                            </li>-->
-<!--                            <li class="page-item">-->
-<!--                                <a id="btnPrevPage" class="page-link" href="#">Prev</a>-->
-<!--                            </li>-->
-<!--                            <li class="page-item">-->
-<!--                                <a id="btnNextPage" class="page-link" href="#">Next</a>-->
-<!--                            </li>-->
-<!--                            <li class="page-item">-->
-<!--                                <a id="btnLastPage" class="page-link" href="#">Last</a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <div class="input-group input-group-sm">-->
-<!--                                    <label class="input-group-text" for="selectPage">Go to</label>-->
-<!--                                    <select id="selectPage">-->
-<!--                                        <option value="1">1</option>-->
-<!--                                        <option selected value="2">2</option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                        </ul>-->
 
-<!--                    </nav>-->
-                    <nav aria-label="Page navigation" class="justify-content-center" hidden id="pageWrapper" style="display: flex; height: 34.68px">
+                    <nav aria-label="Page navigation" class="justify-content-center" hidden id="pageWrapper"
+                         style="display: flex; height: 34.68px">
                         <ul class="pagination pagination-sm justify-content-center">
                             <li class="page-item">
                                 <a id="btnFirstPage" class="page-link" href="#">First</a>
@@ -269,20 +227,6 @@
 
 
 <script>
-    const inputImage = document.getElementById("inputImage")
-    const fileInputInvalidFeedback = document.getElementById("fileInputInvalidFeedback")
-    const inputBookTitle = document.getElementById("inputBookTitle")
-    const inputAuthor = document.getElementById("inputAuthor")
-    const inputPublisher = document.getElementById("inputPublisher")
-    const inputLanguage = document.getElementById("inputLanguage")
-    const inputCategory = document.getElementById("inputCategory")
-    const bookForm = document.getElementById("bookForm")
-    const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-    const closeBtn = document.getElementById('closeBtn')
-    const btnSearch = document.getElementById("btnSearch")
-
-    const imgType = new Set(["jpg", "jpeg", "png", "bmp", "webp", "svg", "gif"])
-
     const nameReg = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,29}$/
     const titleReg = /[\w\d _.,!"'\[\]/$]*/
 
@@ -356,9 +300,6 @@
         params.append('colName', colName)
         params.append('searchContent', searchContent)
         params.append('pageNumber', pageNumber)
-        // console.log('searchType: ', searchType)
-        // console.log('colName: ', colName)
-        // console.log('searchContent: ', searchContent)
         getBookData(params)
     }
     btnSearch.addEventListener("click", () => {
@@ -404,62 +345,57 @@
         e.stopPropagation()
         const {searchType, curPage, totalPage} = e.target._params
         if (e.target._params.ele === "firstPage") {
-          if (curPage === 1) {
-            return
-          }
-          if (searchType === 'all') {
-            getAllBookData(1)
-          } else {
-            getBookDataByConditions(1)
-          }
+            if (curPage === 1) {
+                return
+            }
+            if (searchType === 'all') {
+                getAllBookData(1)
+            } else {
+                getBookDataByConditions(1)
+            }
         } else if (e.target._params.ele === "prevPage") {
-          if (curPage === 1) {
-            return
-          }
-          if (searchType === 'all') {
-            getAllBookData(curPage - 1)
-          } else {
-            getBookDataByConditions(curPage - 1)
-          }
+            if (curPage === 1) {
+                return
+            }
+            if (searchType === 'all') {
+                getAllBookData(curPage - 1)
+            } else {
+                getBookDataByConditions(curPage - 1)
+            }
         } else if (e.target._params.ele === "nextPage") {
-          if (curPage === totalPage) {
-            return
-          }
-          if (searchType === 'all') {
-            getAllBookData(curPage + 1)
-          } else {
-            getBookDataByConditions(curPage + 1)
-          }
+            if (curPage === totalPage) {
+                return
+            }
+            if (searchType === 'all') {
+                getAllBookData(curPage + 1)
+            } else {
+                getBookDataByConditions(curPage + 1)
+            }
         } else if (e.target._params.ele === "lastPage") {
-          if (curPage === totalPage) {
-            return
-          }
-          if (searchType === 'all') {
-            getAllBookData(totalPage)
-          } else {
-            getBookDataByConditions(totalPage)
-          }
+            if (curPage === totalPage) {
+                return
+            }
+            if (searchType === 'all') {
+                getAllBookData(totalPage)
+            } else {
+                getBookDataByConditions(totalPage)
+            }
         } else if (e.target._params.ele === "gotoPage") {
-          const selectPage = document.getElementById("selectPage")
-          const gotoPage = parseInt(selectPage.options[selectPage.selectedIndex].text.trim())
-          if (gotoPage < 1 || gotoPage > totalPage) {
-            return
-          }
-          if (searchType === 'all') {
-            getAllBookData(gotoPage)
-          } else {
-            getBookDataByConditions(gotoPage)
-          }
+            const selectPage = document.getElementById("selectPage")
+            const gotoPage = parseInt(selectPage.options[selectPage.selectedIndex].text.trim())
+            if (gotoPage < 1 || gotoPage > totalPage) {
+                return
+            }
+            if (searchType === 'all') {
+                getAllBookData(gotoPage)
+            } else {
+                getBookDataByConditions(gotoPage)
+            }
         } else {
 
         }
 
-      }
-
-
-
-
-
+    }
 
     const makePagination = (page) => {
         const pageWrapper = document.getElementById("pageWrapper")
@@ -488,23 +424,23 @@
             btnFirstPage.addEventListener('click', handleClick)
 
             btnPrevPage.removeEventListener('click', handleClick)
-          btnPrevPage._params = page
-          btnPrevPage._params.ele = "prevPage"
+            btnPrevPage._params = page
+            btnPrevPage._params.ele = "prevPage"
             btnPrevPage.addEventListener('click', handleClick)
 
             btnNextPage.removeEventListener('click', handleClick)
-          btnNextPage._params = page
-          btnNextPage._params.ele = "nextPage"
+            btnNextPage._params = page
+            btnNextPage._params.ele = "nextPage"
             btnNextPage.addEventListener('click', handleClick)
 
             btnLastPage.removeEventListener('click', handleClick)
-          btnLastPage._params = page
-          btnLastPage._params.ele = "lastPage"
+            btnLastPage._params = page
+            btnLastPage._params.ele = "lastPage"
             btnLastPage.addEventListener('click', handleClick)
 
             selectPage.removeEventListener('change', handleClick)
-          selectPage._params = page
-          selectPage._params.ele = "gotoPage"
+            selectPage._params = page
+            selectPage._params.ele = "gotoPage"
             selectPage.addEventListener('change', handleClick)
 
             pageWrapper.removeAttribute("hidden")
@@ -514,6 +450,7 @@
 
 
     }
+
     const makeCards = data => {
         const cardsWrapper = document.getElementById("cardsWrapper")
         cardsWrapper.innerHTML = ''
@@ -522,7 +459,8 @@
             for (let i = 0; i < data.length; i++) {
                 cardsWrapper.innerHTML += `
 <figure class="${data[i].status}">
-        <img src="${data[i].image}" alt="Book Cover">
+        <img class="" src="${data[i].image}" alt="Book Cover">
+        <div onclick="detailClick(${data[i].id})" class="bookdetail"></div>
         <figcaption>${data[i].status}</figcaption>
 </figure>
 `
@@ -531,6 +469,105 @@
             alert('No searching result from database!', 'success')
         }
     }
+    const detailClick = (bookId) => {
+        const detailModal = new bootstrap.Modal(document.getElementById("staticBackdrop"))
+        detailModal.show()
+        let params = new FormData()
+        params.append('type', 'one')
+        params.append('bookId', bookId)
+        axios({
+            url: './php/getbooksdata.php',
+            method: 'POST',
+            data: params
+        }).then(
+            response => {
+                if (response.data.code === "0") {
+                    fillModalData(response.data.data);
+                } else {
+                    alert(response.data.message, 'danger')
+                }
+
+            },
+            error => {
+                alert(error.message, 'danger')
+            }
+        )
+    }
+    const fillModalData = (bookDetails) => {
+        const book = bookDetails[0]
+        const bookCover = document.getElementById("bookCover")
+        const inputBookTitle = document.getElementById("inputBookTitle")
+        const inputAuthor = document.getElementById("inputAuthor")
+        const inputPublisher = document.getElementById("inputPublisher")
+        const inputLanguage = document.getElementById("inputLanguage")
+        const inputCategory = document.getElementById("inputCategory")
+        const inputBookStatus = document.getElementById("bookStatus")
+        const submitBtn = document.getElementById('submitBtn')
+        const imgUrl = document.getElementById("imgUrl")
+        inputBookTitle.value = book.book_title
+        inputAuthor.value = book.author
+        inputPublisher.value = book.publisher
+        inputCategory.value = book.publisher
+        inputLanguage.value = book.language
+        bookCover.src = book.image
+        imgUrl.href = book.image
+        inputBookStatus.value = book.status
+        if (book.status === 'Available') {
+            submitBtn.removeAttribute('disabled')
+            submitBtn._param = book.id
+            submitBtn.removeEventListener('click', borrowBook)
+            submitBtn.addEventListener('click', borrowBook)
+        } else {
+            submitBtn.setAttribute('disabled', 'true')
+        }
+
+    }
+    const borrowBook = (e) => {
+        e.target.setAttribute('disabled', 'true')
+        axios({
+            url: '/library/php/authentication.php',
+            method: 'POST'
+        }).then(
+            response => {
+                if (response.data.code === "2" || response.data.code === "3") {
+                    changeBtnLoginLogout("login")
+                    const memberId = response.data.data.memberId
+                    const bookId = e.target._param
+                    let params = new FormData()
+                    params.append('type', 'borrow')
+                    params.append('bookId', bookId)
+                    params.append('memberId', memberId)
+                    axios({
+                        url: '/library/php/updatebooksdata.php',
+                        method: 'POST',
+                        data: params
+                    }).then(
+                        response => {
+                            if (response.data.code === "0") {
+                                alert("Borrow book successfully!", 'success')
+                                location.href = 'bookshelf.html'
+                            } else {
+                                alert("Failed to borrow book, please try again later", 'danger')
+                                e.target.removeAttribute("disabled")
+                            }
+                        },
+                        error => {
+                            alert(error.message, 'danger')
+                        }
+                    )
+
+                } else {
+                    changeBtnLoginLogout("logout")
+                    alert("Please login first then come to borrow books !", 'danger')
+                    location.href = "./login.html"
+                }
+            },
+            error => {
+                alert(error.message, 'danger')
+            }
+        )
+
+    }
 
     const handleEdit = (id) => {
         console.log('edit' + id)
@@ -538,60 +575,6 @@
     const handleDelete = (id) => {
         console.log('delete' + id)
     }
-
-    bookForm.addEventListener("submit", (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        const elements = document.getElementsByClassName("is-valid")
-        if (elements.length === 6) {
-            toggleInputsAndBtn('disabled')
-            const bookTitle = inputBookTitle.value.trim()
-            const author = inputAuthor.value.trim()
-            const publisher = inputPublisher.value.trim()
-            const language = inputLanguage.options[inputLanguage.selectedIndex].text.trim()
-            const category = inputCategory.options[inputCategory.selectedIndex].text.trim()
-            const image = inputImage.files[0]
-            let param = new FormData()
-            param.append('image', image, image.name)
-            param.append('bookTitle', bookTitle)
-            param.append('author', author)
-            param.append('publisher', publisher)
-            param.append('language', language)
-            param.append('category', category)
-            //todo session control
-            param.append('memberId', '')
-            let config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
-            axios({
-                url: './php/add.php',
-                method: 'POST',
-                data: param,
-                config: config
-            }).then(response => {
-                if (response.data.code === '0') {
-                    getAllBookData()
-                    bookForm.reset()
-                    toggleInputsAndBtn('able')
-                    inputBookTitle.classList.remove('is-valid')
-                    inputAuthor.classList.remove('is-valid')
-                    inputPublisher.classList.remove('is-valid')
-                    inputImage.classList.remove('is-valid')
-                    alert('New book added successfully!', 'success')
-                    closeBtn.click()
-                } else {
-                    toggleInputsAndBtn('able')
-                    alert('Failed to add new book, ' + response.data.message, 'danger')
-                }
-
-            }).catch(error => {
-                toggleInputsAndBtn("able")
-                alert(error.message + "please try again later", "danger")
-            })
-        }
-    })
 
 
     inputBookTitle.addEventListener("change", e => {
@@ -633,22 +616,6 @@
             return true
         }
     }
-    inputImage.addEventListener("change", event => {
-        if (event.target.files) {
-            const type = event.target.files[0].type.split("/")[1]
-            const size = event.target.files[0].size
-            if (!checkImgType(type)) {
-                changeInputStatus(inputImage, "is-invalid")
-                return
-            }
-            if (!checkImgSize(size)) {
-                changeInputStatus(inputImage, "is-invalid")
-                return
-            }
-            changeInputStatus(inputImage, "is-valid")
-        }
-
-    })
 
     function changeInputStatus(ele, statu) {
         switch (statu) {
@@ -692,17 +659,17 @@
         }
     }
 
-    const alert = (message, type) => {
-        const wrapper = document.createElement('div')
-        wrapper.innerHTML = [
-            `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-            `   <div>${message}</div>`,
-            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-            '</div>'
-        ].join('')
-        alertPlaceholder.append(wrapper)
-    }
-
+    // const alert = (message, type) => {
+    //     const wrapper = document.createElement('div')
+    //     wrapper.innerHTML = [
+    //         `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    //         `   <div>${message}</div>`,
+    //         '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    //         '</div>'
+    //     ].join('')
+    //     alertPlaceholder.append(wrapper)
+    // }
+    // <button type="button" data-bs-toggle="modal" data-bs-target="#myModal">Launch modal</button>
 
 </script>
 

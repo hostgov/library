@@ -7,4 +7,4 @@ const UPLOAD_IMAGE_TYPES = array("jpg", "jpeg", "png", "bmp", "webp", "svg", "gi
 const BOOK_LANGUAGES = array("English","French","German","Mandarin","Japanese","Russian","Other");
 const BOOK_CATEGORIES = array("Fiction","Nonfiction","Reference");
 const BOOK_SEARCH_COLUMN_NAME = array("book_title", "author", "publisher", "language", "category");
-const ADMIN_SEARCH_TYPE = array("all","exa","fuz");
+const ADMIN_SEARCH_TYPE = array("all","exa","fuz","one", "borrow");

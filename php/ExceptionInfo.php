@@ -42,7 +42,8 @@ const GETBOOKSDATA = array(
     "2"=>"DATABASE EXECUTION ERROR - Check duplicate email failed",
     "3"=>"SEARCH PARAMS ERROR",
     "4"=>"SEARCH PARAMS ERROR",
-    "5"=>"DATABASE EXECUTION ERROR"
+    "5"=>"DATABASE EXECUTION ERROR",
+    "6"=>"search param error"
 );
 const LOGIN = array(
     "0"=>"SUCCESS",
@@ -61,4 +62,11 @@ const AUTHEN = array(
     "1"=>"no login",
     "2"=>"login member",
     "3"=>"login admin"
+);
+const UPDATEBOOKSDATA = array(
+    "0"=>"success",
+    "1"=>"Query params error",
+    "2"=>"DATABASE CONNECTION ERROR",
+    "3"=>"no such Query type",
+    "4"=>"DATABASE EXECUTION ERROR"
 );

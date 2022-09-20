@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die();
     } else {
         $searchType = formFilter($_POST['type']);
-        if ($searchType == '' || !in_array($searchType, ADMIN_SEARCH_TYPE)) {
+        if (!$searchType || $searchType == '' || !in_array($searchType, ADMIN_SEARCH_TYPE)) {
             echo json_encode(array('code' => '3', 'message' => GETBOOKSDATA["3"]));
             die();
         }
@@ -30,9 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $con->stmt_init();
 
     $pageSize = ADMIN_BOOK_PAGESIZE;
-    $curPage = (int)$_POST['pageNumber'];
-    $offSet = ($curPage - 1) * $pageSize;
     $total = 0;
+    $curPage = 1;
+    $offSet = 0;
+    if ($searchType != 'one') {
+        $curPage = (int)$_POST['pageNumber'];
+        $offSet = ($curPage - 1) * $pageSize;
+    } else {
+        $bookId = (int)$_POST['bookId'];
+        if (!$bookId || $bookId == '') {
+            echo json_encode(array("code" => "6", "message"=> GETBOOKSDATA["6"]));
+        }
+    }
+
 
     // params {'type': all/exa/fuz, 'colName': columnName, 'value': value}
     if ($searchType == 'all') {
@@ -58,6 +68,12 @@ SELECT book.`id`, book.`book_title`,book.`author`,book.`publisher`,book.`languag
 FROM book LEFT JOIN book_status ON book.`id`=book_status.`book_id`
 WHERE book_status.`status` != 'Deleted' limit ? , ?");
         $stmt->bind_param('ii', $offSet, $pageSize);
+    } else if ($searchType == 'one') {
+        $stmt = $con->prepare("
+SELECT book.`id`, book.`book_title`,book.`author`,book.`publisher`,book.`language`,book.`category`,book.`image`, book_status.`status` 
+FROM book LEFT JOIN book_status ON book.`id`=book_status.`book_id`
+WHERE book_status.`status` != 'Deleted' and book.`id`=?");
+        $stmt -> bind_param('i', $bookId);
     } else {
         $colName = '';
         if (!$_POST['colName']) {
@@ -165,6 +181,7 @@ AND ".$colName.' like ? limit ?, ?');
         echo json_encode(array("code" => "5", "message" => GETBOOKSDATA["5"]));
         die();
     }
+
 
 
     $stmt->close();

@@ -45,12 +45,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $con->set_charset(DB_CHARSET);
     $stmt = $con->stmt_init();
-    $stmt = $con->prepare('select `member_type`,`first_name`,`last_name`,`email`, `password` from `user` where `email` = ?');
+    $stmt = $con->prepare('select `id`, `member_type`,`first_name`,`last_name`,`email`, `password` from `user` where `email` = ?');
     $stmt->bind_param("s", $email);
     if ($stmt->execute()) {
         $result = $stmt->get_result();
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
+            $memberId = $row['id'];
             $memberType = $row['member_type'];
             $firstName = $row['first_name'];
             $lastName = $row['last_name'];
@@ -58,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $compare = password_verify($password, $storedPassword);
             if ($compare) {
                 $_SESSION["member"] = "true";
-                $memberData = array("memberType"=>$memberType, "firstName"=>$firstName, "lastName"=>$lastName);
+                $memberData = array("memberId"=> $memberId, "memberType"=>$memberType, "firstName"=>$firstName, "lastName"=>$lastName);
                 $_SESSION["memberData"] = $memberData;
                 setcookie(session_name(), session_id(), 3600 * 2);
                 unset($_SESSION["failed"]);
