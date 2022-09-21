@@ -92,15 +92,14 @@
                 <thead>
                 <tr class="table-light">
                     <td colspan="2">
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">ADD
+                        <button type="button" class="btn btn-primary btn-sm" onclick="handleAdd()">ADD
                         </button>
                     </td>
                     <td colspan="8">
                         <div class="input-group input-group-sm mb-0">
 
-                            <label class="input-group-text" for="inputSearchType">Mode</label>
-                            <select class="col-md-1" id="inputSearchType">
+                            <label class="input-group-text" hidden for="inputSearchType">Mode</label>
+                            <select class="col-md-1" hidden id="inputSearchType">
                                 <option value="1">Fuzzy</option>
                                 <option value="2">Exact</option>
                             </select>
@@ -176,7 +175,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addBookCaption">ADD A NEW BOOK</h5>
+                    <h5 class="modal-title" id="modalTitle">ADD A NEW BOOK</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -210,7 +209,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="col-form-label" for="inputLanguage">Language</label>
-                                    <select name="language" class="form-select is-valid formItem" id="inputLanguage">
+                                    <select name="language" class="form-select formItem form-control"  required id="inputLanguage">
                                         <option value="1">English</option>
                                         <option value="2">French</option>
                                         <option value="3">German</option>
@@ -222,7 +221,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="col-form-label" for="inputCategory">Category</label>
-                                    <select name="category" class="is-valid form-select formItem" id="inputCategory">
+                                    <select name="category" class="form-select formItem" id="inputCategory">
                                         <option value="1">Fiction</option>
                                         <option value="2">Nonfiction</option>
                                         <option value="3">Reference</option>
@@ -235,6 +234,10 @@
                                         Image size should be smaller than 1MB.
                                     </div>
                                 </div>
+                                <input type="hidden" id="updateType">
+                                <input type="hidden" id="inputBookId">
+                                <input type="hidden" id="inputCurrBookImage">
+                                <input type="hidden" id="curPage">
                             </form>
                         </div>
                         <div class="col"></div>
@@ -271,6 +274,11 @@
 <script src="../js/common.js"></script>
 
 <script>
+    const inputCurPage = document.getElementById('curPage')
+    const inputCurrBookImage = document.getElementById("inputCurrBookImage")
+    const inputBookId = document.getElementById("inputBookId")
+    const inputUpdateType = document.getElementById("updateType")
+    const modalTitle = document.getElementById("modalTitle")
     const inputImage = document.getElementById("inputImage")
     const fileInputInvalidFeedback = document.getElementById("fileInputInvalidFeedback")
     const inputBookTitle = document.getElementById("inputBookTitle")
@@ -293,8 +301,8 @@
     axios.defaults.withCredentials = true
     axios.interceptors.request.use(
         config => {
-            if (localStorage.member_login) {
-                config.headers.Authorization = localStorage.member_login
+            if (localStorage.login_member) {
+                config.headers.Authorization = localStorage.login_member
             }
             return config
         },
@@ -309,13 +317,39 @@
         error => {
             const {status} = error.response
             if (status === 401) {
-                localStorage.removeItem('member_login')
+                localStorage.removeItem('login_member')
                 location.href = '../login.html'
             }
             return Promise.reject(error)
         }
     )
     // params {'type': all/exa/fuz, 'colName': columnName, 'value': value}
+    inputLanguage.addEventListener('change', ()=> {
+        if (inputLanguage.selectedIndex !== "") {
+            if (inputLanguage.classList.contains("is-invalid")) {
+                inputLanguage.classList.remove("is-invalid")
+            }
+            inputLanguage.classList.add("is-valid")
+        } else {
+            if (inputLanguage.classList.contains("is-valid")) {
+                inputLanguage.classList.remove("is-valid")
+            }
+            inputLanguage.classList.add("is-invalid")
+        }
+    })
+    inputCategory.addEventListener('change', ()=> {
+        if (inputCategory.selectedIndex !== "") {
+            if (inputCategory.classList.contains("is-invalid")) {
+                inputCategory.classList.remove("is-invalid")
+            }
+            inputCategory.classList.add("is-valid")
+        } else {
+            if (inputCategory.classList.contains("is-valid")) {
+                inputCategory.classList.remove("is-valid")
+            }
+            inputCategory.classList.add("is-invalid")
+        }
+    })
 
 
     const getBookDataByConditions = (pageNumber) => {
@@ -376,8 +410,6 @@
         getBookData(params)
     }
 
-
-
     const getBookData = (params) => {
         axios({
             url: '../php/getbooksdata.php',
@@ -385,8 +417,9 @@
             data: params
         }).then(
             response => {
+                // console.log("response: " + response.data )
                 if (response.data.code === "0") {
-                    fillTable(response.data.data)
+                    fillTable(response.data.data, response.data.page)
                     makePagination(response.data.page)
                 } else {
                     alert(response.data.message, 'danger')
@@ -455,6 +488,7 @@
       }
 
     }
+
     const makePagination = (page) => {
       const pageWrapper = document.getElementById("pageWrapper")
       if (page) {
@@ -509,9 +543,8 @@
 
     }
 
-    const fillTable = data => {
+    const fillTable = (data, page) => {
         if (data && data.length !== 0) {
-            // console.log(data)
             displayTbody.innerHTML = ''
             for (let i = 0; i < data.length; i++) {
                 displayTbody.innerHTML += `
@@ -523,14 +556,15 @@
                     <td>${data[i].language}</td>
                     <td>${data[i].category}</td>
                     <td>${data[i].status}</td>
-                    <td><img src="${data[i].image}" alt="book cover image"></td>
+                    <td><img src="${data[i].image === null ? '#' : data[i].image}" alt="book cover image"></td>
                     <td>
                         <button type="button" class="btn btn-warning btn-sm"
-                                style="--bs-btn-padding-x:1rem; color:white" onclick="handleEdit(${data[i].id})">edit
+                                style="--bs-btn-padding-x:1rem; color:white" onclick="handleEdit(${data[i].id}, ${page.curPage})">edit
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="handleDelete(${data[i].id})">delete
+                        <button type="button" class="btn btn-danger btn-sm" onclick="handleDelete(${data[i].id}, ${page.curPage})">delete
                         </button>
-
+                        <button type="button" class="btn btn-success btn-sm" ${data[i].status === 'Onloan' ? '' : 'hidden'}  onclick="handleReturn(${data[i].id}, ${page.curPage})">return
+                        </button>
                     </td>
                 </tr>
                 `
@@ -539,58 +573,232 @@
             alert('No searching result from database!', 'success')
         }
     }
-    const handleEdit = (id) => {
-        console.log('edit' + id)
+
+    const clearModalData = () => {
+        modalTitle.innerHTML = ""
+        inputBookTitle.value = ""
+        inputAuthor.value = ""
+        inputPublisher.value = ""
+        inputUpdateType.value = ""
+        inputBookId.value = ""
+        inputCurrBookImage.value = ""
+        inputLanguage.value = ""
+        inputCategory.value = ""
     }
-    const handleDelete = (id) => {
-        console.log('delete' + id)
+
+    const handleAdd = () => {
+        const bookModal = new bootstrap.Modal(document.getElementById("staticBackdrop"))
+        clearModalData()
+        modalTitle.innerHTML = "Add a new book"
+        inputUpdateType.text = "add"
+        bookModal.show()
+    }
+
+    const fillModalData = (bookDetails, curPage) => {
+        const book = bookDetails[0]
+        modalTitle.innerHTML = "Edit book details"
+        if (book) {
+            if (book.book_title && book.book_title !== "") {
+                inputBookTitle.value = book.book_title
+                inputBookTitle.classList.add("is-valid")
+            }
+            if (book.author && book.author !== "") {
+                inputAuthor.value = book.author
+                inputAuthor.classList.add("is-valid")
+            }
+            if (book.publisher && book.publisher !== "") {
+                inputPublisher.value = book.publisher
+                inputPublisher.classList.add("is-valid")
+            }
+            if (book.id && book.id !== "") {
+                inputBookId.value = book.id
+            }
+            if (book.image && book.image !== "") {
+                inputCurrBookImage.value = book.image
+            }
+            if (book.language && book.language !== "") {
+                for (let i = 0; i < inputLanguage.options.length; i++) {
+                    if (inputLanguage.options[i].text === book.language) {
+                        inputLanguage.selectedIndex = i;
+                        inputLanguage.classList.add("is-valid")
+                    }
+                }
+            }
+            if (book.category && book.category !== "") {
+                for (let i = 0; i < inputCategory.options.length; i++) {
+                    if (inputCategory.options[i].text === book.category) {
+                        inputCategory.selectedIndex = i;
+                        inputCategory.classList.add("is-valid")
+                    }
+                }
+            }
+        }
+        inputUpdateType.value = "edit"
+        inputCurPage.value = curPage
+
+    }
+
+    const handleEdit = async (id, curPage) => {
+        const bookModal = new bootstrap.Modal(document.getElementById("staticBackdrop"))
+        clearModalData()
+        const params = new FormData();
+        params.append('type', 'one')
+        params.append('bookId', id)
+        await axios({
+            url: '../php/getbooksdata.php',
+            method: 'POST',
+            data: params
+        }).then(
+            response => {
+                if (response.data.code === "0") {
+                    fillModalData(response.data.data, curPage);
+                    bookModal.show();
+                } else {
+                    alert(response.data.message, 'danger')
+                }
+
+            },
+            error => {
+                alert(error.message, 'danger')
+            }
+        )
+
+    }
+
+    const handleDelete = (id, curPage) => {
+        if (!localStorage.getItem("login_member") || !JSON.parse(localStorage.getItem("login_member")).memberId || localStorage.getItem("login_member") === '') {
+            alert("please login first, redirect to login.html")
+            location.href = '../login.html'
+        } else if (!JSON.parse(localStorage.getItem("login_member")).memberType && !JSON.parse(localStorage.getItem("login_member")).memberType !== "admin") {
+            alert("please login as Admin to do this operation ! redirect to index page !")
+            location.href = '../index.html'
+        }
+        if (window.confirm('Are you sure you want to delete this book? ')) {
+            let params = new FormData()
+            params.append('bookId', id)
+            params.append('memberId', JSON.parse(localStorage.getItem("login_member")).memberId)
+            params.append('updateType', 'delete')
+            axios({
+                url: '../php/admin.php',
+                method: 'POST',
+                data: params
+            }). then (
+                response => {
+                    if (response.data.code === '0') {
+                        alert('Delete book successfully', 'success')
+                        getAllBookData(curPage)
+                    } else {
+                        alert(response.data.message, 'danger')
+                    }
+                },
+                error => {
+                    alert(error.message, 'danger')
+                }
+
+            )
+        }
+    }
+
+    const handleReturn = (id, curPage) => {
+        if (!localStorage.getItem("login_member") || !JSON.parse(localStorage.getItem("login_member")).memberId || localStorage.getItem("login_member") === '') {
+            alert("please login first, redirect to login.html")
+            location.href = '../login.html'
+        }else if (!JSON.parse(localStorage.getItem("login_member")).memberType && !JSON.parse(localStorage.getItem("login_member")).memberType !== "admin") {
+            alert("please login as Admin to do this operation ! redirect to index page !")
+            location.href = '../index.html'
+        }
+        if (window.confirm('Please confirm to return book')) {
+            let params = new FormData()
+            params.append('bookId', id)
+            params.append('memberId', JSON.parse(localStorage.getItem("login_member")).memberId)
+            params.append('updateType', 'return')
+            axios({
+                url: '../php/admin.php',
+                method: 'POST',
+                data: params
+            }). then (
+                response => {
+                    if (response.data.code === '0') {
+                        alert('Return book successfully', 'success')
+                        getAllBookData(curPage)
+                    } else {
+                        alert(response.data.message, 'danger')
+                    }
+                },
+                error => {
+                    alert(error.message, 'danger')
+                }
+
+            )
+        }
     }
 
     bookForm.addEventListener("submit", (e) => {
         e.preventDefault()
         e.stopPropagation()
         const elements = document.getElementsByClassName("is-valid")
-        if (elements.length === 6) {
+        if (!localStorage.getItem("login_member") || !JSON.parse(localStorage.getItem("login_member")).memberId || localStorage.getItem("login_member") === '') {
+            alert("please login first, redirect to login.html")
+            location.href = '../login.html'
+        }
+        if (elements.length >= 2) {
             toggleInputsAndBtn('disabled')
             const bookTitle = inputBookTitle.value.trim()
             const author = inputAuthor.value.trim()
             const publisher = inputPublisher.value.trim()
             const language = inputLanguage.options[inputLanguage.selectedIndex].text.trim()
             const category = inputCategory.options[inputCategory.selectedIndex].text.trim()
+            const updateType = inputUpdateType.value.trim()
+            const bookId = inputBookId.value.trim()
             const image = inputImage.files[0]
+            const currBookImage = inputCurrBookImage.value.trim()
+            const memberId = JSON.parse(localStorage.getItem("login_member")).memberId
+            let curPage = 1
+            if (inputCurPage.value) {
+                curPage = parseInt(inputCurPage.value.trim())
+            }
+
+
             let param = new FormData()
-            param.append('image', image, image.name)
+            if (!image || !image.name) {
+                param.append('image','')
+            } else {
+                param.append('image', image, image.name)
+            }
+
             param.append('bookTitle', bookTitle)
             param.append('author', author)
             param.append('publisher', publisher)
             param.append('language', language)
             param.append('category', category)
-            //todo session control
-            param.append('memberId', '')
+            param.append('updateType', updateType)
+            param.append('bookId', bookId)
+            param.append('memberId', memberId)
+            param.append('currBookImage', currBookImage)
             let config = {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             }
             axios({
-                url: '../php/add.php',
+                url: '../php/admin.php',
                 method: 'POST',
                 data: param,
                 config: config
             }).then(response => {
                 if (response.data.code === '0') {
-                    getAllBookData()
+                    getAllBookData(curPage)
                     bookForm.reset()
                     toggleInputsAndBtn('able')
                     inputBookTitle.classList.remove('is-valid')
                     inputAuthor.classList.remove('is-valid')
                     inputPublisher.classList.remove('is-valid')
                     inputImage.classList.remove('is-valid')
-                    alert('New book added successfully!', 'success')
+                    alert(modalTitle.innerHTML + '. Action successfully operated!', 'success')
                     closeBtn.click()
                 } else {
                     toggleInputsAndBtn('able')
-                    alert('Failed to add new book, ' + response.data.message, 'danger')
+                    alert(modalTitle.innerHTML + '. Action failed, ' + response.data.message, 'danger')
                 }
 
             }).catch(error => {

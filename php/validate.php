@@ -87,44 +87,44 @@ function formFilter($str): string
 function checkImage($file): array
 {
     if ($file["error"] != 0) {
-        return array("code" => "1", "message" => ADDNEWBOOK["1"]);
+        return array("code" => "1", "message" => ADMINOPRATION["1"]);
     }
 
     $fileType = explode('/', $file['type']);
     if ($fileType[0] != "image") {
-        return array("code" => "2", "message" => ADDNEWBOOK["2"]);
+        return array("code" => "2", "message" => ADMINOPRATION["2"]);
     }
     $imageTypeArray = UPLOAD_IMAGE_TYPES;
     if (!in_array($fileType[1], $imageTypeArray)) {
-        return array("code" => "3", "message" => ADDNEWBOOK["3"]);
+        return array("code" => "3", "message" => ADMINOPRATION["3"]);
     }
     $imageSize = $file['size'];
     if ($imageSize > IMAGE_UPLOAD_MAX_SIZE) {
-        return array("code"=>"4", "message" => ADDNEWBOOK["4"]);
+        return array("code"=>"4", "message" => ADMINOPRATION["4"]);
     }
 
-    return array("code"=>"0", "message"=>ADDNEWBOOK["0"]);
+    return array("code"=>"0", "message"=>ADMINOPRATION["0"]);
 }
 function checkBookDetails($str): array {
     $str = formFilter($str);
     $reg = '/[\w\x{4e00}-\x{9fa5}]+/u';
 
     if (empty($str || strlen($str) > 100 || !preg_match($reg, $str))) {
-        return array("code" => "6", "message" => ADDNEWBOOK["6"]);
+        return array("code" => "6", "message" => ADMINOPRATION["6"]);
     }
-    return array("code" => "0", "message" => ADDNEWBOOK["0"]);
+    return array("code" => "0", "message" => ADMINOPRATION["0"]);
 }
 function checkBookLanguage($str):array {
     $str = formFilter($str);
     if (empty($str || !in_array($str, BOOK_LANGUAGES))) {
-        return array("code" => "7", "message" => ADDNEWBOOK["7"]);
+        return array("code" => "7", "message" => ADMINOPRATION["7"]);
     }
-    return array("code" => "0", "message" => ADDNEWBOOK["0"]);
+    return array("code" => "0", "message" => ADMINOPRATION["0"]);
 }
 function checkBookCategory($str):array {
     $str = formFilter($str);
     if (empty($str || !in_array($str, BOOK_CATEGORIES))) {
-        return array("code" => "8", "message" => ADDNEWBOOK["8"]);
+        return array("code" => "8", "message" => ADMINOPRATION["8"]);
     }
-    return array("code" => "0", "message" => ADDNEWBOOK["0"]);
+    return array("code" => "0", "message" => ADMINOPRATION["0"]);
 }

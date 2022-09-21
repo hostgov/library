@@ -19,7 +19,7 @@ const SIGNUPENUM = array(
   "15"=>"EMPTY PASSWORD ERROR - Please input valid password"
 );
 
-const ADDNEWBOOK = array(
+const ADMINOPRATION = array(
     "0"=>"SUCCESS",
     "1"=>"UPLOADING IMAGE ERROR - Please try again later",
     "2"=>"UPLOADING FILE TYPE ERROR - Please upload valid image",
@@ -33,7 +33,12 @@ const ADDNEWBOOK = array(
     "10"=>"DATABASE EXECUTION ERROR - Insert new book information into database failed",
     "11"=>"MULTIPLE SUBMIT ERROR - Please wait a while and submit again",
     "12"=>"DATABASE EXECUTION ERROR , ROLLBACK SUCCESS",
-    "13"=>"DATABASE EXECUTION ERROR , ROLLBACK FAILED - Please check database"
+    "13"=>"DATABASE EXECUTION ERROR , ROLLBACK FAILED - Please check database",
+    "14"=>"Authentication error, please login or re-login",
+    "15"=>"update type error",
+    "16"=>"delete params error, missing bookID",
+    "17"=>"Query sql prepare failed",
+    "18"=>"DATABASE EXECUTION ERROR"
 );
 
 const GETBOOKSDATA = array(
@@ -68,5 +73,5 @@ const UPDATEBOOKSDATA = array(
     "1"=>"Query params error",
     "2"=>"DATABASE CONNECTION ERROR",
     "3"=>"no such Query type",
-    "4"=>"DATABASE EXECUTION ERROR"
+    "4"=>"DATABASE EXECUTION ERROR",
 );

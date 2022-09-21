@@ -175,7 +175,7 @@ AND ".$colName.' like ? limit ?, ?');
         }
         $totalPage = ceil($total/$pageSize);
         $page = array("curPage"=>$curPage, "total"=> $total, "totalPage"=>$totalPage, "searchType"=> $searchType);
-        echo json_encode(array("code" => "0", "message" => ADDNEWBOOK["0"],"page"=>$page, "data" => $data));
+        echo json_encode(array("code" => "0", "message" => GETBOOKSDATA["0"],"page"=>$page, "data" => $data));
 
     } else {
         echo json_encode(array("code" => "5", "message" => GETBOOKSDATA["5"]));

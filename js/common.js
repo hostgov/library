@@ -15,7 +15,7 @@ const logout = () => {
     if (window.confirm("Please confirm you want to log out")) {
         axios.get("/library/php/logout.php").then(
             response => {
-                // localStorage.removeItem("login_member")
+                localStorage.removeItem("login_member")
                 changeBtnLoginLogout("logout")
                 alert("logout successfully", "success")
             },

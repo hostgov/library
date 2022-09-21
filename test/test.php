@@ -23,4 +23,12 @@
 //$reg = '/[\w\x{4e00}-\x{9fa5}]+/u';
 //$bool = preg_match($reg, $str);
 //echo $bool;
-var_dump($_SERVER);
+$a = 'http://localhost/library/files/1663672907.jpeg';
+$b = explode('/', $a);
+$currBookImageSavePath = $_SERVER["DOCUMENT_ROOT"]. '/'.$b[count($b) - 3]. '/'.$b[count($b) - 2]. '/'.$b[count($b) - 1];
+echo $currBookImageSavePath;
+if (unlink($currBookImageSavePath)) {
+    echo 'ok';
+} else {
+    echo 'failed';
+}

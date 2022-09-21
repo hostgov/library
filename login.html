@@ -162,7 +162,7 @@
             response => {
               if (response.data.code === "0") {
                 alert('Login successfully. Welcome back ' + response.data.data.firstName, 'success')
-                // localStorage.setItem("login_member", JSON.stringify(response.data.data))
+                localStorage.setItem("login_member", JSON.stringify(response.data.data))
                 changeBtnLoginLogout("login")
                 if (response.data.data.memberType === "admin") {
                   location.href = './admin/booksmanagement.html'
