@@ -190,3 +190,6 @@ th, td {
 .content {
     margin-top: 80px;
 }
+tr.table-light {
+    line-height: 50px;
+}
