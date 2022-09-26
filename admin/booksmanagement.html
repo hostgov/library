@@ -152,6 +152,9 @@
                                 <li class="page-item">
                                     <a id="btnLastPage" class="page-link" href="#">Last</a>
                                 </li>
+                                <li class="page-item" hidden>
+                                    <a id="currPageRefresh" class="page-link" href="#">Last</a>
+                                </li>
                             </ul>
                             <div class="input-group input-group-sm mb-0 justify-content-end">
                                 <label class="input-group-text" for="selectPage">Current Page</label>
@@ -399,6 +402,7 @@
         // console.log('searchContent: ', searchContent)
         getBookData(params)
     }
+
     btnSearch.addEventListener("click", () => {
         getBookDataByConditions(1)
     })
@@ -485,6 +489,12 @@
             } else {
                 getBookDataByConditions(gotoPage)
             }
+        } else if (ele === "currPageRefresh"){
+            if (searchType === 'all') {
+                getAllBookData(curPage)
+            } else {
+                getBookDataByConditions(curPage)
+            }
         } else {
 
         }
@@ -499,6 +509,7 @@
             const btnNextPage = document.getElementById("btnNextPage")
             const btnLastPage = document.getElementById("btnLastPage")
             const selectPage = document.getElementById("selectPage")
+            const btnCurPageRefresh = document.getElementById("currPageRefresh")
             const {curPage, total, totalPage, searchType} = page
             const prevPage = curPage === 1 ? 1 : curPage - 1;
             const nextPage = curPage === totalPage ? totalPage : curPage + 1;
@@ -537,6 +548,11 @@
             selectPage._ele = "gotoPage"
             selectPage.addEventListener('change', handleClick)
 
+            btnCurPageRefresh.removeEventListener('click', handleClick)
+            btnCurPageRefresh._params = page
+            btnCurPageRefresh._ele = "currPageRefresh"
+            btnCurPageRefresh.addEventListener("click", handleClick)
+
             pageWrapper.removeAttribute("hidden")
         } else {
             pageWrapper.setAttribute("hidden", "true")
@@ -545,9 +561,14 @@
 
     }
 
+    const deleteTable = () => {
+        displayTbody.innerHTML= ''
+    }
+
     const fillTable = (data, page) => {
+        displayTbody.innerHTML = ''
         if (data && data.length !== 0) {
-            displayTbody.innerHTML = ''
+
             for (let i = 0; i < data.length; i++) {
                 displayTbody.innerHTML += `
                     <tr>
@@ -579,13 +600,25 @@
     const clearModalData = () => {
         modalTitle.innerHTML = ""
         inputBookTitle.value = ""
+        inputBookTitle.classList.remove("is-valid")
+        inputBookTitle.classList.remove("is-invalid")
         inputAuthor.value = ""
+        inputAuthor.classList.remove("is-valid")
+        inputAuthor.classList.remove("is-invalid")
         inputPublisher.value = ""
+        inputPublisher.classList.remove("is-valid")
+        inputPublisher.classList.remove("is-invalid")
         inputUpdateType.value = ""
         inputBookId.value = ""
         inputCurrBookImage.value = ""
+        inputCurrBookImage.classList.remove("is-valid")
+        inputCurrBookImage.classList.remove("is-invalid")
         inputLanguage.value = ""
+        inputLanguage.classList.remove("is-valid")
+        inputLanguage.classList.remove("is-invalid")
         inputCategory.value = ""
+        inputCategory.classList.remove("is-valid")
+        inputCategory.classList.remove("is-invalid")
     }
 
     const handleAdd = () => {
@@ -688,7 +721,9 @@
                 response => {
                     if (response.data.code === '0') {
                         alert('Delete book successfully', 'success')
-                        getAllBookData(curPage)
+                        const btnCurPageRefresh = document.getElementById("currPageRefresh")
+                        btnCurPageRefresh.click()
+                        // getAllBookData(curPage)
                     } else {
                         alert(response.data.message, 'danger')
                     }
@@ -721,7 +756,9 @@
                 response => {
                     if (response.data.code === '0') {
                         alert('Return book successfully', 'success')
-                        getAllBookData(curPage)
+                        const btnCurPageRefresh = document.getElementById("currPageRefresh")
+                        btnCurPageRefresh.click()
+                        // getAllBookData(curPage)
                     } else {
                         alert(response.data.message, 'danger')
                     }
@@ -787,7 +824,18 @@
                 config: config
             }).then(response => {
                 if (response.data.code === '0') {
-                    getAllBookData(curPage)
+                    const btnCurPageRefresh = document.getElementById("currPageRefresh")
+                    if (updateType === 'add') {
+
+                        const btnLastPage = document.getElementById("btnLastPage")
+                        btnCurPageRefresh.click()
+                        btnLastPage.click()
+
+                    } else {
+                        btnCurPageRefresh.click()
+                    }
+                    // getAllBookData(curPage)
+
                     bookForm.reset()
                     toggleInputsAndBtn('able')
                     inputBookTitle.classList.remove('is-valid')

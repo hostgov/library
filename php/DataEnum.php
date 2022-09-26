@@ -9,3 +9,4 @@ const BOOK_CATEGORIES = array("Fiction","Nonfiction","Reference");
 const BOOK_SEARCH_COLUMN_NAME = array("book_title", "author", "publisher", "language", "category");
 const ADMIN_SEARCH_TYPE = array("all","exa","fuz","one", "borrow");
 const ADMIN_UPDATE_TYPE = array("add", "edit", "delete", "return");
+const USER_LOGIN_SESSION_NAME = "libraryLoginUser";

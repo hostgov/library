@@ -60,6 +60,10 @@ WHERE book_status.`status` != 'Deleted'");
         if ($total == 0) {
             echo json_encode(array("code"=>"0", "message"=>GETBOOKSDATA["0"]));
             die();
+        } else {
+            while ($offSet >= $total) {
+                $offSet -= $pageSize;
+            }
         }
 
         $stmt = $con->stmt_init();

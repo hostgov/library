@@ -1,6 +1,7 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once "./ExceptionInfo.php";
+    include_once "DataEnum.php";
     session_start();
     if (isset($_SESSION["member"]) && $_SESSION["member"] == "true") {
         if (isset($_SESSION["memberData"])) {
@@ -15,6 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         } else {
             unset($_SESSION["member"]);
+            if (isset($_COOKIE[USER_LOGIN_SESSION_NAME])) {
+                setcookie(USER_LOGIN_SESSION_NAME,"", time() - 3600, "/");
+            }
             if (isset($_COOKIE[session_name()])) {
                 setcookie(session_name(),"", time() - 3600, "/");
             }
@@ -23,6 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
     } else {
+        if (isset($_COOKIE[USER_LOGIN_SESSION_NAME])) {
+            setcookie(USER_LOGIN_SESSION_NAME,"", time() - 3600, "/");
+        }
+        if (isset($_COOKIE[session_name()])) {
+            setcookie(session_name(),"", time() - 3600, "/");
+        }
         echo json_encode(array("code" => "1", "message" => AUTHEN["1"]));
         die();
     }

@@ -38,7 +38,8 @@ const ADMINOPRATION = array(
     "15"=>"update type error",
     "16"=>"delete params error, missing bookID",
     "17"=>"Query sql prepare failed",
-    "18"=>"DATABASE EXECUTION ERROR"
+    "18"=>"DATABASE EXECUTION ERROR",
+    "19"=>"Book details is not changed"
 );
 
 const GETBOOKSDATA = array(
@@ -73,5 +74,5 @@ const UPDATEBOOKSDATA = array(
     "1"=>"Query params error",
     "2"=>"DATABASE CONNECTION ERROR",
     "3"=>"no such Query type",
-    "4"=>"DATABASE EXECUTION ERROR",
+    "4"=>"DATABASE EXECUTION ERROR"
 );

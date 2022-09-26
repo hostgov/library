@@ -192,6 +192,9 @@
                             <li class="page-item">
                                 <a id="btnLastPage" class="page-link" href="#">Last</a>
                             </li>
+                            <li class="page-item" hidden>
+                                <a id="currPageRefresh" class="page-link" href="#">Last</a>
+                            </li>
                         </ul>
                         <div id="currPage" class="input-group input-group-sm mb-0">
                             <label class="input-group-text" for="selectPage">Current Page</label>
@@ -392,7 +395,13 @@
             } else {
                 getBookDataByConditions(gotoPage)
             }
-        } else {
+        }else if (ele === "currPageRefresh"){
+            if (searchType === 'all') {
+                getAllBookData(curPage)
+            } else {
+                getBookDataByConditions(curPage)
+            }
+        }else {
 
         }
 
@@ -406,6 +415,7 @@
             const btnNextPage = document.getElementById("btnNextPage")
             const btnLastPage = document.getElementById("btnLastPage")
             const selectPage = document.getElementById("selectPage")
+            const btnCurPageRefresh = document.getElementById("currPageRefresh")
             const {curPage, total, totalPage, searchType} = page
             const prevPage = curPage === 1 ? 1 : curPage - 1;
             const nextPage = curPage === totalPage ? totalPage : curPage + 1;
@@ -444,6 +454,11 @@
             selectPage._ele = "gotoPage"
             selectPage.addEventListener('change', handleClick)
 
+            btnCurPageRefresh.removeEventListener('click', handleClick)
+            btnCurPageRefresh._params = page
+            btnCurPageRefresh._ele = "currPageRefresh"
+            btnCurPageRefresh.addEventListener("click", handleClick)
+
             pageWrapper.removeAttribute("hidden")
         } else {
             pageWrapper.setAttribute("hidden", "true")
@@ -451,6 +466,12 @@
 
 
     }
+
+    const refreshCurPage = () => {
+        const btnCurPageRefresh = document.getElementById("btnCurPageRefresh")
+        btnCurPageRefresh.click()
+    }
+
 
     const makeCards = data => {
         const cardsWrapper = document.getElementById("cardsWrapper")
@@ -495,7 +516,6 @@
         )
     }
     const fillModalData = (bookDetails) => {
-        const book = bookDetails[0]
         const bookCover = document.getElementById("bookCover")
         const inputBookTitle = document.getElementById("inputBookTitle")
         const inputAuthor = document.getElementById("inputAuthor")
@@ -505,69 +525,91 @@
         const inputBookStatus = document.getElementById("bookStatus")
         const submitBtn = document.getElementById('submitBtn')
         const imgUrl = document.getElementById("imgUrl")
-        inputBookTitle.value = book.book_title
-        inputAuthor.value = book.author
-        inputPublisher.value = book.publisher
-        inputCategory.value = book.publisher
-        inputLanguage.value = book.language
-        bookCover.src = book.image
-        imgUrl.href = book.image
-        inputBookStatus.value = book.status
-        if (book.status === 'Available') {
-            submitBtn.removeAttribute('disabled')
-            submitBtn._param = book.id
-            submitBtn.removeEventListener('click', borrowBook)
-            submitBtn.addEventListener('click', borrowBook)
+        if (bookDetails) {
+            const book = bookDetails[0]
+
+            inputBookTitle.value = book.book_title
+            inputAuthor.value = book.author
+            inputPublisher.value = book.publisher
+            inputCategory.value = book.publisher
+            inputLanguage.value = book.language
+            bookCover.src = book.image
+            imgUrl.href = book.image
+            inputBookStatus.value = book.status
+            if (book.status === 'Available') {
+                submitBtn.removeAttribute('disabled')
+                submitBtn._param = book.id
+                submitBtn.removeEventListener('click', borrowBook)
+                submitBtn.addEventListener('click', borrowBook)
+            } else {
+                submitBtn.setAttribute('disabled', 'true')
+            }
         } else {
+            bookCover.src=""
+            inputBookTitle.value = ""
+            inputAuthor.value = ""
+            inputPublisher.value = ""
+            inputCategory.value=""
+            inputLanguage.value = ""
+            imgUrl.href="#"
+            inputBookStatus.value=""
             submitBtn.setAttribute('disabled', 'true')
         }
-
     }
+    const resetBookDetailModal = () => {
+        const modal = document.getElementById("staticBackdrop")
+        const detailModal = bootstrap.Modal.getInstance(modal)
+        detailModal.hide()
+        fillModalData();
+    }
+
     const borrowBook = (e) => {
-        e.target.setAttribute('disabled', 'true')
-        axios({
-            url: '/library/php/authentication.php',
-            method: 'POST'
-        }).then(
-            response => {
-                if (response.data.code === "2" || response.data.code === "3") {
-                    changeBtnLoginLogout("login")
-                    const memberId = response.data.data.memberId
-                    const bookId = e.target._param
-                    let params = new FormData()
-                    params.append('type', 'borrow')
-                    params.append('bookId', bookId)
-                    params.append('memberId', memberId)
-                    axios({
-                        url: '/library/php/updatebooksdata.php',
-                        method: 'POST',
-                        data: params
-                    }).then(
-                        response => {
-                            if (response.data.code === "0") {
-                                alert("Borrow book successfully!", 'success')
-                                location.href = 'bookshelf.html'
-                            } else {
-                                alert("Failed to borrow book, please try again later", 'danger')
-                                e.target.removeAttribute("disabled")
+        if (window.confirm("Please confirm you want to borrow this book")) {
+            e.target.setAttribute('disabled', 'true')
+            axios({
+                url: '/library/php/authentication.php',
+                method: 'POST'
+            }).then(
+                response => {
+                    if (response.data.code === "2" || response.data.code === "3") {
+                        changeBtnLoginLogout("login")
+                        const memberId = response.data.data.memberId
+                        const bookId = e.target._param
+                        let params = new FormData()
+                        params.append('type', 'borrow')
+                        params.append('bookId', bookId)
+                        params.append('memberId', memberId)
+                        axios({
+                            url: '/library/php/updatebooksdata.php',
+                            method: 'POST',
+                            data: params
+                        }).then(
+                            response => {
+                                if (response.data.code === "0") {
+                                    alert("Borrow book successfully!", 'success')
+                                    resetBookDetailModal()
+                                    refreshCurPage()
+                                } else {
+                                    alert("Failed to borrow book, please try again later", 'danger')
+                                    e.target.removeAttribute("disabled")
+                                }
+                            },
+                            error => {
+                                alert(error.message, 'danger')
                             }
-                        },
-                        error => {
-                            alert(error.message, 'danger')
-                        }
-                    )
+                        )
 
-                } else {
-                    changeBtnLoginLogout("logout")
-                    alert("Please login first then come to borrow books !", 'danger')
-                    location.href = "./login.html"
+                    } else {
+                        changeBtnLoginLogout("logout")
+                        alert("Please login first then come to borrow books !", 'danger')
+                        location.href = "./login.html"
+                    }
+                },
+                error => {
+                    alert(error.message, 'danger')
                 }
-            },
-            error => {
-                alert(error.message, 'danger')
-            }
-        )
-
+            )
+        }
     }
 
 

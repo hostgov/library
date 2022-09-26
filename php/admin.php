@@ -177,6 +177,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
             if ($stmt->execute() && $stmt->affected_rows == 1) {
                 echo json_encode(array("code" => "0", "message" => ADMINOPRATION["0"]));
+            } else {
+                echo json_encode(array("code"=>"19", "message"=>ADMINOPRATION["19"]));
             }
         }
     }

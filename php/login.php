@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     include_once 'ExceptionInfo.php';
+    include_once 'DataEnum.php';
 
     $con->set_charset(DB_CHARSET);
     $stmt = $con->stmt_init();
@@ -61,7 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION["member"] = "true";
                 $memberData = array("memberId"=> $memberId, "memberType"=>$memberType, "firstName"=>$firstName, "lastName"=>$lastName);
                 $_SESSION["memberData"] = $memberData;
-                setcookie(session_name(), session_id(), 3600 * 2);
+                setcookie(session_name(), session_id(), time() + 3600 * 2, "/");
+                setcookie(USER_LOGIN_SESSION_NAME, json_encode($memberData), time() + 3600 * 2, "/");
                 unset($_SESSION["failed"]);
                 unset($_SESSION["failedTimeOffset"]);
                 echo json_encode(array('code' => '0', 'message' => LOGIN['0'], 'data'=> $memberData));

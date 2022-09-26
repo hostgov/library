@@ -161,6 +161,7 @@
           }).then(
             response => {
               if (response.data.code === "0") {
+                console.log(response.data)
                 alert('Login successfully. Welcome back ' + response.data.data.firstName, 'success')
                 localStorage.setItem("login_member", JSON.stringify(response.data.data))
                 changeBtnLoginLogout("login")
@@ -187,8 +188,34 @@
 
   }
 
-  window.addEventListener("load", ()=> {
-    checkLoginBack()
+  window.addEventListener("load", () => {
+    const p1 = checkLoginFront()
+            .then(value => {
+                      return Promise.reject(value)
+                    },
+                    reason => {
+                      return Promise.resolve(reason)
+                    })
+    const p2 = checkLoginBack2()
+            .then(value => {
+                      return Promise.reject(value)
+                    },
+                    reason => {
+                      return Promise.resolve(reason)
+                    })
+
+    Promise.all([p1,p2]).then(
+            result=>{
+              changeBtnLoginLogout("logout")
+            }
+    ).catch(error => {
+              changeBtnLoginLogout("login")
+              alert("you have already login","danger")
+              location.href="./index.html"
+            }
+    )
+
+
   })
 
 </script>
