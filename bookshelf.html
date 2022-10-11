@@ -161,6 +161,7 @@
                             <option value="3">Publisher</option>
                             <option value="4">Language</option>
                             <option value="5">Category</option>
+                            <option value="6">Any</option>
                         </select>
                         <input type="text" class="col-md-4"
                                id="inputSearchContent"
@@ -283,6 +284,9 @@
                 break
             case 'Category':
                 colName = 'category'
+                break
+            case 'Any':
+                colName = 'any'
                 break
             default:
                 break
@@ -468,7 +472,7 @@
     }
 
     const refreshCurPage = () => {
-        const btnCurPageRefresh = document.getElementById("btnCurPageRefresh")
+        const btnCurPageRefresh = document.getElementById("currPageRefresh")
         btnCurPageRefresh.click()
     }
 

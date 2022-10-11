@@ -137,14 +137,25 @@ AND " . $colName . "=? limit ?,?";
             $stmt->bind_param("sii", $searchValue, $offSet, $pageSize);
         } else if ($searchType == 'fuz') {
             $searchValue = '%' . $searchValue . '%';
-            $stmt = $con->prepare("
+            if ($colName == 'any') {
+                $stmt = $con ->prepare("
 SELECT count(*) 
 FROM book
 LEFT JOIN book_status
 ON book.`id`=book_status.`book_id`
 WHERE book_status.`status` != 'Deleted'
-AND ".$colName." like ?");
-            $stmt->bind_param("s", $searchValue);
+AND (book.`book_title` like ? or book.`author` like ? or book.`publisher` like ? or book.`language` like ? or book.`category` like ?)");
+                $stmt->bind_param("sssss",$searchValue,$searchValue,$searchValue,$searchValue,$searchValue);
+            } else {
+                $stmt = $con->prepare("
+SELECT count(*) 
+FROM book
+LEFT JOIN book_status
+ON book.`id`=book_status.`book_id`
+WHERE book_status.`status` != 'Deleted'
+AND " . $colName . " like ?");
+                $stmt->bind_param("s", $searchValue);
+            }
             if($stmt->execute()) {
                 $stmt->bind_result($total);
                 $stmt->fetch();
@@ -159,14 +170,31 @@ AND ".$colName." like ?");
 
 
             $stmt = $con->stmt_init();
-            $stmt = $con->prepare("
+            if ($colName == 'any') {
+                $stmt = $con->prepare("
+SELECT book.`id`, book.`book_title`,book.`author`,book.`publisher`,book.`language`,book.`category`,book.`image`, book_status.`status`
+FROM book
+LEFT JOIN book_status
+ON book.`id`=book_status.`book_id`
+WHERE book_status.`status` != 'Deleted'
+AND (book.`book_title` LIKE ? 
+OR book.`author` LIKE ? 
+OR book.`publisher` LIKE ? 
+OR book.`language` LIKE ? 
+OR book.`category` LIKE ?)
+limit ?, ?
+                ");
+                $stmt->bind_param("sssssii",$searchValue,$searchValue,$searchValue,$searchValue,$searchValue,$offSet, $pageSize);
+            } else {
+                $stmt = $con->prepare("
 SELECT book.`id`, book.`book_title`,book.`author`,book.`publisher`,book.`language`,book.`category`,book.`image`, book_status.`status` 
 FROM book
 LEFT JOIN book_status
 ON book.`id`=book_status.`book_id`
 WHERE book_status.`status` != 'Deleted'
-AND ".$colName.' like ? limit ?, ?');
-            $stmt->bind_param("sii", $searchValue, $offSet, $pageSize);
+AND " . $colName . ' like ? limit ?, ?');
+                $stmt->bind_param("sii", $searchValue, $offSet, $pageSize);
+            }
         } else {
             die();
         }
