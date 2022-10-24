@@ -139,7 +139,8 @@
                 <tfoot class="table-group-divider">
                 <tr>
                     <td colspan="13" id="pageWrapper">
-                        <nav aria-label="Page navigation" style="display: flex; height: 34.68px">
+                        <nav class="align-items-center" aria-label="Page navigation"
+                             style="display: flex; height: 34.68px">
                             <ul class="pagination pagination-sm">
                                 <li class="page-item">
                                     <a id="btnFirstPage" class="page-link" href="#">First</a>
@@ -164,6 +165,24 @@
                                 </select>
                             </div>
                         </nav>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                        <div class="totalBooksWrapper">
+                            <span>Total Books:</span>
+                            <h6 id="totalBooks"></h6>
+                        </div>
+
+
+                    </td>
+                    <td colspan="10"></td>
+                    <td>
+                        <div class="totalPagesWrapper">
+                            <span>Total Pages:</span>
+                            <h6 id="totalPage"></h6>
+                        </div>
                     </td>
                 </tr>
                 </tfoot>
@@ -299,7 +318,6 @@
 
     const imgType = new Set(["jpg", "jpeg", "png", "bmp", "webp", "svg", "gif"])
 
-    const nameReg = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,29}$/
     const titleReg = /[\w\d _.,!"'\[\]/$]*/
 
     axios.defaults.withCredentials = true
@@ -493,7 +511,7 @@
             } else {
                 getBookDataByConditions(gotoPage)
             }
-        } else if (ele === "currPageRefresh"){
+        } else if (ele === "currPageRefresh") {
             if (searchType === 'all') {
                 getAllBookData(curPage)
             } else {
@@ -514,9 +532,13 @@
             const btnLastPage = document.getElementById("btnLastPage")
             const selectPage = document.getElementById("selectPage")
             const btnCurPageRefresh = document.getElementById("currPageRefresh")
+            const booksTotal = document.getElementById("totalBooks")
+            const pagesTotal = document.getElementById("totalPage")
             const {curPage, total, totalPage, searchType} = page
             const prevPage = curPage === 1 ? 1 : curPage - 1;
             const nextPage = curPage === totalPage ? totalPage : curPage + 1;
+            booksTotal.innerText = total ? total : 0
+            pagesTotal.innerText = totalPage ? totalPage : 0
             selectPage.innerHTML = ''
             for (let i = 1; i <= totalPage; i++) {
                 let option = document.createElement('option')
@@ -566,7 +588,7 @@
     }
 
     const deleteTable = () => {
-        displayTbody.innerHTML= ''
+        displayTbody.innerHTML = ''
     }
 
     const fillTable = (data, page) => {
@@ -872,18 +894,6 @@
     })
 
 
-    const checkField = (e, reg, len) => {
-        const ele = e.target
-        const v = ele.value.trim()
-        if (v.length <= len && reg.test(v)) {
-            changeInputStatus(ele, "is-valid")
-            return true
-        } else {
-            changeInputStatus(ele, "is-invalid")
-            return false
-        }
-    }
-
     const checkImgType = type => {
         if (imgType.has(type)) {
             return true
@@ -916,29 +926,6 @@
         }
 
     })
-
-    function changeInputStatus(ele, statu) {
-        switch (statu) {
-            case "is-valid":
-                if (!ele.classList.contains("is-valid")) {
-                    if (ele.classList.contains("is-invalid")) {
-                        ele.classList.remove("is-invalid")
-                    }
-                    ele.classList.add("is-valid")
-                }
-                break;
-            case "is-invalid":
-                if (!ele.classList.contains("is-invalid")) {
-                    if (ele.classList.contains("is-valid")) {
-                        ele.classList.remove("is-valid")
-                    }
-                    ele.classList.add("is-invalid")
-                }
-                break;
-            default:
-                break;
-        }
-    }
 
     const toggleInputsAndBtn = (dest) => {
         const inputs = document.getElementsByClassName("formItem")

@@ -127,11 +127,20 @@
 <script src="./js/common.js"></script>
 <script>
   const loginForm = document.getElementById("loginform")
+  const inputEmail = document.getElementById("email")
+  const inputPassword = document.getElementById("password")
+  inputEmail.addEventListener("change", e => {
+    checkField(e, emailReg, 50)
+  })
+  inputPassword.addEventListener("change", e => {
+    checkField(e, passwordReg, 15)
+  })
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault()
     e.stopPropagation()
     login()
   })
+
 
 
 
@@ -147,9 +156,12 @@
         } else {
           changeBtnLoginLogout("logout")
           localStorage.clear()
+          if (!inputEmail.classList.contains('is-valid') || !inputPassword.classList.contains('is-valid')) {
+            return
+          }
           const email = document.getElementById('email').value.trim()
           const password = document.getElementById('password').value.trim()
-          //todo validation
+
           const params = new FormData()
           params.append('email', email)
           params.append('password', password)

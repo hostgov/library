@@ -193,3 +193,20 @@ th, td {
 tr.table-light {
     line-height: 50px;
 }
+
+/*page*/
+div.totalBooksWrapper {
+    width: max-content;
+}
+div.totalPagesWrapper {
+    width: max-content;
+}
+#totalPage{
+    display: inline;
+    color: #E84E4E;
+}
+#totalBooks{
+    display: inline;
+    color: #E84E4E;
+}
+

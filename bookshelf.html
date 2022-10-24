@@ -204,6 +204,14 @@
                                 <option selected value="2">2</option>
                             </select>
                         </div>
+                        <div class="totalBooksWrapper">
+                            <p>Total Books: </p>
+                            <p id="totalBooks"></p>
+                        </div>
+                        <div class="totalPagesWrapper">
+                            <p>Total Pages: </p>
+                            <p id="totalPage"></p>
+                        </div>
                     </nav>
                 </div>
             </main>
@@ -231,7 +239,7 @@
 
 
 <script>
-    const nameReg = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,29}$/
+
     const titleReg = /[\w\d _.,!"'\[\]/$]*/
 
     axios.defaults.withCredentials = true
@@ -420,9 +428,14 @@
             const btnLastPage = document.getElementById("btnLastPage")
             const selectPage = document.getElementById("selectPage")
             const btnCurPageRefresh = document.getElementById("currPageRefresh")
+            const booksTotal = document.getElementById("totalBooks")
+            const pagesTotal = document.getElementById("totalPage")
+
             const {curPage, total, totalPage, searchType} = page
             const prevPage = curPage === 1 ? 1 : curPage - 1;
             const nextPage = curPage === totalPage ? totalPage : curPage + 1;
+            booksTotal.innerText = total ? total : 0
+            pagesTotal.innerText = totalPage ? totalPage : 0
             selectPage.innerHTML = ''
             for (let i = 1; i <= totalPage; i++) {
                 let option = document.createElement('option')
@@ -617,6 +630,7 @@
     }
 
 
+
     inputBookTitle.addEventListener("change", e => {
         checkField(e, titleReg, 100)
     })
@@ -626,56 +640,6 @@
     inputPublisher.addEventListener("change", e => {
         checkField(e, nameReg, 30)
     })
-
-
-    const checkField = (e, reg, len) => {
-        const ele = e.target
-        const v = ele.value.trim()
-        if (v.length <= len && reg.test(v)) {
-            changeInputStatus(ele, "is-valid")
-            return true
-        } else {
-            changeInputStatus(ele, "is-invalid")
-            return false
-        }
-    }
-
-    function changeInputStatus(ele, statu) {
-        switch (statu) {
-            case "is-valid":
-                if (!ele.classList.contains("is-valid")) {
-                    if (ele.classList.contains("is-invalid")) {
-                        ele.classList.remove("is-invalid")
-                    }
-                    ele.classList.add("is-valid")
-                }
-                break;
-            case "is-invalid":
-                if (!ele.classList.contains("is-invalid")) {
-                    if (ele.classList.contains("is-valid")) {
-                        ele.classList.remove("is-valid")
-                    }
-                    ele.classList.add("is-invalid")
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    // const alert = (message, type) => {
-    //     const wrapper = document.createElement('div')
-    //     wrapper.innerHTML = [
-    //         `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-    //         `   <div>${message}</div>`,
-    //         '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-    //         '</div>'
-    //     ].join('')
-    //     alertPlaceholder.append(wrapper)
-    // }
-    // <button type="button" data-bs-toggle="modal" data-bs-target="#myModal">Launch modal</button>
-
 </script>
 
 </body>

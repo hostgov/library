@@ -1,3 +1,43 @@
+const emailReg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/
+const nameReg = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{0,19}$/
+const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}/
+
+
+
+const checkField = (e, reg, len) => {
+    const ele = e.target
+    const v = ele.value.trim()
+    if (v.length <= len && reg.test(v)) {
+        changeInputStatus(ele, "is-valid")
+        return true
+    } else {
+        changeInputStatus(ele, "is-invalid")
+        return false
+    }
+}
+function changeInputStatus(ele, statu) {
+    switch (statu) {
+        case "is-valid":
+            if (!ele.classList.contains("is-valid")) {
+                if (ele.classList.contains("is-invalid")) {
+                    ele.classList.remove("is-invalid")
+                }
+                ele.classList.add("is-valid")
+            }
+            break;
+        case "is-invalid":
+            if (!ele.classList.contains("is-invalid")) {
+                if (ele.classList.contains("is-valid")) {
+                    ele.classList.remove("is-valid")
+                }
+                ele.classList.add("is-invalid")
+            }
+            break;
+        default:
+            break;
+    }
+}
+
 const changeBtnLoginLogout = (type) => {
     const loginBtn = document.getElementById("loginBtn")
     const logoutBtn = document.getElementById("logoutBtn")
