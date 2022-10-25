@@ -578,7 +578,7 @@ p {
     background-color: rgba(43, 42, 61, 0.9);
     z-index: -1
 }
-.section_title > h4, .section_title > p {
+#contact h4, #contact p {
     color: white;
 }
 

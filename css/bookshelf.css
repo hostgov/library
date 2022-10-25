@@ -238,24 +238,22 @@ body {
         position: relative;
         transition: all 1s;
     }
-    .portfolio > figure:hover {
-
-    }
     .portfolio img {
         flex: 1;
     }
-    .portfolio img:hover {
-        -webkit-filter: blur(10px); /* Chrome, Opera */
-        -ms-filter: blur(10px);
-        filter: blur(10px);
-    }
-    .portfolio .featured {
-        grid-row: span 2;
-        grid-column: span 2;
-    }
-    .portfolio .clicked {
+    /*.portfolio img:hover {*/
+    /*    -webkit-filter: blur(10px); !* Chrome, Opera *!*/
+    /*    -ms-filter: blur(10px);*/
+    /*    filter: blur(10px);*/
+    /*}*/
 
+    figure.Available figcaption {
+        background-color: #E84E4E;
     }
+    figure.Onloan figcaption {
+        background-color: #2B2A3D;
+    }
+
     .bookdetail{
         position: absolute;
         top: 0;
@@ -265,8 +263,29 @@ body {
         transition: all 1s;
     }
     .bookdetail:hover {
-        background: rgba(43, 42, 61, 0.7);
+        background: rgba(232, 78, 78, 0.9);
         cursor: pointer;
+    }
+    .bookdetail:hover .detailBtn {
+        opacity: 1;
+    }
+    .detailBtn {
+        position: absolute;
+        top: 50%;
+        left: 35%;
+        display: block;
+        width: 80px;
+        height: 35px;
+        line-height: 35px;
+        border: solid 1px white;
+        color: white;
+        text-align: center;
+        opacity: 0;
+        transition: all 1s;
+    }
+    .detailBtn:hover {
+        background: white;
+        color: #E84E4E;
     }
 }
 

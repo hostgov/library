@@ -499,7 +499,9 @@
                 cardsWrapper.innerHTML += `
 <figure class="${data[i].status}">
         <img class="" src="${data[i].image}" alt="Book Cover">
-        <div onclick="detailClick(${data[i].id})" class="bookdetail"></div>
+        <div onclick="detailClick(${data[i].id})" class="bookdetail">
+            <div class = "detailBtn">Detail</div>
+        </div>
         <figcaption>${data[i].status}</figcaption>
 </figure>
 `
