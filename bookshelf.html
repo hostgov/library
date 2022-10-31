@@ -179,7 +179,7 @@
                 <div class="main-bot">
 
                     <nav aria-label="Page navigation" class="justify-content-center" hidden id="pageWrapper"
-                         style="display: flex; height: 34.68px">
+                         style="display: flex; height: 35px">
                         <ul class="pagination pagination-sm justify-content-center">
                             <li class="page-item">
                                 <a id="btnFirstPage" class="page-link" href="#">First</a>
@@ -345,12 +345,12 @@
                     makeCards(response.data.data)
                     makePagination(response.data.page)
                 } else {
-                    alert(response.data.message, 'danger')
+                    alert(response.data.message)
                 }
 
             },
             error => {
-                alert(error.message, 'danger')
+                alert(error.message)
             }
         )
     }
@@ -431,9 +431,9 @@
             const booksTotal = document.getElementById("totalBooks")
             const pagesTotal = document.getElementById("totalPage")
 
-            const {curPage, total, totalPage, searchType} = page
-            const prevPage = curPage === 1 ? 1 : curPage - 1;
-            const nextPage = curPage === totalPage ? totalPage : curPage + 1;
+            const {curPage, total, totalPage} = page
+            // const prevPage = curPage === 1 ? 1 : curPage - 1;
+            // const nextPage = curPage === totalPage ? totalPage : curPage + 1;
             booksTotal.innerText = total ? total : 0
             pagesTotal.innerText = totalPage ? totalPage : 0
             selectPage.innerHTML = ''
@@ -507,7 +507,7 @@
 `
             }
         } else {
-            alert('No searching result from database!', 'success')
+            alert('No searching result from database!')
         }
     }
     const detailClick = (bookId) => {
@@ -525,12 +525,12 @@
                 if (response.data.code === "0") {
                     fillModalData(response.data.data);
                 } else {
-                    alert(response.data.message, 'danger')
+                    alert(response.data.message)
                 }
 
             },
             error => {
-                alert(error.message, 'danger')
+                alert(error.message)
             }
         )
     }
@@ -605,27 +605,27 @@
                         }).then(
                             response => {
                                 if (response.data.code === "0") {
-                                    alert("Borrow book successfully!", 'success')
+                                    alert("Borrow book successfully!")
                                     resetBookDetailModal()
                                     refreshCurPage()
                                 } else {
-                                    alert("Failed to borrow book, please try again later", 'danger')
+                                    alert("Failed to borrow book, please try again later")
                                     e.target.removeAttribute("disabled")
                                 }
                             },
                             error => {
-                                alert(error.message, 'danger')
+                                alert(error.message)
                             }
                         )
 
                     } else {
                         changeBtnLoginLogout("logout")
-                        alert("Please login first then come to borrow books !", 'danger')
+                        alert("Please login first then come to borrow books !")
                         location.href = "./login.html"
                     }
                 },
                 error => {
-                    alert(error.message, 'danger')
+                    alert(error.message)
                 }
             )
         }

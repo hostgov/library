@@ -10,7 +10,10 @@ if ($res["code"] !== "0") {
   die();
 }
 $res = checkEmailDup($email);
-
+if ($res["code"] !== "0") {
+    echo json_encode($res);
+    die();
+}
 echo json_encode($res);
 
 

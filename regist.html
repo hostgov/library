@@ -176,9 +176,6 @@
     const emailInvalidFeedBack = document.getElementById("emailInvalidFeedback")
     const confirmPass = document.getElementById("repeatPass")
 
-    const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-
-
     // const emailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
 
 
@@ -294,17 +291,17 @@
                 if (response.data.code === "0") {
                     registerForm.reset()
                     toggleInputsAndBtn('able')
-                    alert("Congratulations, Register successfully, will redirect to home page in 3 seconds", 'success')
+                    alert("Congratulations, Register successfully, will redirect to home page in 3 seconds")
                     setTimeout(() => {
                         location.href = './login.html'
                     }, 3000)
                 } else {
                     toggleInputsAndBtn("able")
-                    alert(response.data.message + " please try again later", "danger")
+                    alert(response.data.message + " please try again later")
                 }
             }).catch(error => {
                 toggleInputsAndBtn("able")
-                alert(error.message + "please try again later", "danger")
+                alert(error.message + "please try again later")
             })
         }
 
@@ -333,7 +330,7 @@
             }
         ).catch(error => {
             changeBtnLoginLogout("login")
-            alert("you have already login, please log out first then register","danger")
+            alert("you have already login, please log out first then register")
             location.href="./index.html"
             }
         )

@@ -152,7 +152,7 @@
       response => {
         if (response.data.code === "2" || response.data.code === "3") {
           changeBtnLoginLogout("login")
-          alert('you already logged in , please logout first then come back to login', 'danger')
+          alert('you already logged in , please logout first then come back to login')
         } else {
           changeBtnLoginLogout("logout")
           localStorage.clear()
@@ -174,7 +174,7 @@
             response => {
               if (response.data.code === "0") {
                 console.log(response.data)
-                alert('Login successfully. Welcome back ' + response.data.data.firstName, 'success')
+                alert('Login successfully. Welcome back ' + response.data.data.firstName)
                 localStorage.setItem("login_member", JSON.stringify(response.data.data))
                 changeBtnLoginLogout("login")
                 if (response.data.data.memberType === "admin") {
@@ -188,13 +188,13 @@
 
             },
             error => {
-              alert(error.message, 'danger')
+              alert(error.message)
             }
           )
         }
       },
       error => {
-        alert(error.message, 'danger')
+        alert(error.message)
       }
     )
 
@@ -222,7 +222,7 @@
             }
     ).catch(error => {
               changeBtnLoginLogout("login")
-              alert("you have already login","danger")
+              alert("you have already login")
               location.href="./index.html"
             }
     )

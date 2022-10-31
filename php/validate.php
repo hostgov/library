@@ -28,7 +28,6 @@ function checkEmail($email): array
     if (strlen($email) <= 3 || strlen($email) > 50) {
         return array("code" => "4", "message" => SIGNUPENUM["4"]);
     }
-    $email = strtolower($email);
     $reg = "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/";
     if (!preg_match($reg, $email)) {
         return array("code" => "5", "message" => SIGNUPENUM["5"]);
@@ -45,17 +44,19 @@ function checkEmailDup($email): array
     }
     $con->set_charset(DB_CHARSET);
     $stmt = $con->stmt_init();
-    $stmt = $con->prepare("select count(*) from user where email=?");
+    $stmt = $con->prepare("select * from user where email=?");
     $stmt->bind_param('s', $email);
     if (!$stmt->execute()) {
         return array("code" => "2", "message" => SIGNUPENUM["2"]);
     }
-    $dupEmail = 0;
-    $stmt->bind_result($dupEmail);
+    $result = $stmt->get_result();
+    $dupEmail = $result->num_rows;
+
     $con->close();
     $stmt->close();
     if ($dupEmail !== 0) {
         return array("code" => "3", "message" => SIGNUPENUM["3"]);
+
     }
     return array("code" => "0", "message" => SIGNUPENUM["0"]);
 }
